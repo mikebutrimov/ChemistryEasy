@@ -1,11 +1,13 @@
 package org.unhack.chemistryeasy.elements;
 
+import org.unhack.chemistryeasy.mutators.iMutator;
+
 /**
  * Interface for Chemistry Element
  *
  */
 
-public interface IChemElement {
+public interface iChemElement {
     //standart getters
 
     /**
@@ -47,14 +49,17 @@ public interface IChemElement {
      *                on best architecture
      *
      */
-    void setMutator(ChemElementMutator mutator);
+    void setMutator(iMutator mutator);
 
     //statefull methods
 
     /**
-     * This method is used to invoke mutation on element
+     * This method is used to invo
+     * ke mutation on element
      *
      * @return True if mutation was a success, otherwise false
+     *
+     * fires mutate() method of mutator if was set.
      *
      */
     boolean doMutation();
