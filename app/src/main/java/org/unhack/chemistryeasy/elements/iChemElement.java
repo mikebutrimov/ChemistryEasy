@@ -26,7 +26,13 @@ public interface iChemElement {
      *
      * @return atomic mass as float
      */
-    float getAtomicMass();
+    float getAtomicWeight();
+
+    /**
+     *
+     * @return Element Symbol as string
+     */
+    String getElementSymbol();
 
     /**
      *
