@@ -37,8 +37,14 @@ public class ChemElement implements iChemElement {
     }
 
     public String getElementName(){
-        if (this.name.isEmpty()) return null;
-        return this.name;
+        try {
+            return this.name;
+        }
+        catch (NullPointerException npe){
+            return null;
+        }
+
+
     }
 
     public String getBlockName(){
