@@ -17,7 +17,12 @@ import java.util.regex.Pattern;
 public class ChemElementContainer {
     private HashMap<Integer, ChemElement> storage = new HashMap<>();
 
-
+    /**
+     * This methods inits elemets database from sqllite datatbase
+     *
+     * @param context - Application context to know where to find DataBase
+     *
+     */
     public void initFromDb(Context context) {
         this.storage.clear();
         DataBaseHelper db = new DataBaseHelper(context);
@@ -29,7 +34,6 @@ public class ChemElementContainer {
                         String.valueOf(rec[1]), Float.parseFloat(rec[4]));
                 }
             catch (NumberFormatException e){
-                float weight;
                 String sWeight = rec[4];
                 Pattern mPattern = Pattern.compile("\\d+(.{1}\\d+)");
                 Matcher mMatcher = mPattern.matcher(sWeight);
@@ -39,20 +43,34 @@ public class ChemElementContainer {
                             String.valueOf(rec[1]), Float.parseFloat(mMatcher.group()));
                 }
                 catch (Exception ee){
+                    ee.printStackTrace();
                 }
             }
             if (bufElem != null) this.storage.put(bufElem.getElementNumber(), bufElem);
         }
     }
 
+    /**
+     *
+     * @param number - number of element in periodic table
+     * @return ChemElement instance
+     */
     public ChemElement getElementByNumber(int number){
         return this.storage.get(number);
     }
 
+    /**
+     *
+     * @return all elements in container
+     */
     public HashMap<Integer, ChemElement> getAll(){
         return this.storage;
     }
 
+    /**
+     *
+     * @param elem - element to put into container
+     */
     public void putElement(ChemElement elem){
         this.storage.put(elem.getElementNumber(), elem);
     }
