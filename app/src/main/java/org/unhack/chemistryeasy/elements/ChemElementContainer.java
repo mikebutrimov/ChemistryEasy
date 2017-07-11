@@ -1,9 +1,6 @@
 package org.unhack.chemistryeasy.elements;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-
 import org.unhack.chemistryeasy.db.DataBaseHelper;
 
 import java.util.ArrayList;
@@ -46,16 +43,6 @@ public class ChemElementContainer {
             try {
                 bufElem = new ChemElement(Integer.parseInt(rec[0]),String.valueOf(rec[1]),
                         String.valueOf(rec[2]), Float.parseFloat(rec[4]), Boolean.valueOf(rec[7]));
-                try {
-                    bufElem.setMeltingPoint(Float.valueOf(rec[8]));
-                    bufElem.setBoilingPoint(Float.valueOf(rec[9]));
-                    bufElem.setBlockName(String.valueOf(rec[5]));
-                    bufElem.setRadioactive(Boolean.valueOf(rec[7]));
-                    bufElem.setFamily(Integer.parseInt(rec[6]));
-                    bufElem.setDiscoveryYear(Integer.parseInt(rec[10]));
-                }
-                catch (NullPointerException e)
-                {return;}
                 }
             catch (NumberFormatException e){
                 String sWeight = rec[4];
@@ -65,22 +52,20 @@ public class ChemElementContainer {
                 try {
                     bufElem = new ChemElement(Integer.parseInt(rec[0]),String.valueOf(rec[1]),
                             String.valueOf(rec[2]), Float.parseFloat(mMatcher.group()), Boolean.valueOf(rec[7]));
-                    try {
-                        bufElem.setMeltingPoint(Float.valueOf(rec[8]));
-                        bufElem.setBoilingPoint(Float.valueOf(rec[9]));
-                        bufElem.setBlockName(String.valueOf(rec[5]));
-                        bufElem.setRadioactive(Boolean.valueOf(rec[7]));
-                        bufElem.setFamily(Integer.parseInt(rec[6]));
-                        bufElem.setDiscoveryYear(Integer.parseInt(rec[10]));
-                    }
-                    catch (NullPointerException d)
-                    {return;}
                 }
                 catch (Exception ee){
                     ee.printStackTrace();
                 }
             }
-            if (bufElem != null) this.storage.put(bufElem.getElementNumber(), bufElem);
+            if (bufElem != null) {
+                if (rec[8] != null) bufElem.setMeltingPoint(Float.valueOf(rec[8]));
+                if (rec[9] != null) bufElem.setBoilingPoint(Float.valueOf(rec[9]));
+                if (rec[5] != null) bufElem.setBlockName(String.valueOf(rec[5]));
+                if (rec[7] != null) bufElem.setRadioactive(Boolean.valueOf(rec[7]));
+                if (rec[6] != null) bufElem.setFamily(Integer.parseInt(rec[6]));
+                if (rec[10] != null) bufElem.setDiscoveryYear(Integer.parseInt(rec[10]));
+                this.storage.put(bufElem.getElementNumber(), bufElem);
+            }
         }
     }
 
