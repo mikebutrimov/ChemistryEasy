@@ -8,44 +8,20 @@ import org.unhack.chemistryeasy.mutators.iMutator;
  */
 
 public interface iChemElement {
-    //standart getters
-
-    /**
-     *
-     * @return element name as String
-     */
-    String getElementName();
-
-    /**
-     *
-     * @return element number as int in periodic table
-     */
+    /** Standart Getters */
+    //region Getters
+    String getElementNativeName();
     int getElementNumber();
-
-    /**
-     *
-     * @return atomic mass as float
-     */
     float getAtomicWeight();
-
-    /**
-     *
-     * @return Element Symbol as string
-     */
+    boolean isRadioactive();
     String getElementSymbol();
+    int getFamily();
+    float getMeltingPoint();
+    float getBoilingPoint();
+    int getDiscoveryYear();
+    String getBlockName(); /** S, P , D , F */
+    //endregion
 
-    /**
-     *
-     * @return element's block as String (S,P,D,F)
-     */
-    String getBlockName();
-
-    //Some othe getters shoul be there, these ones ar as part of an example.
-    //
-
-
-    //standart setters
-    //base params are setted by class constructor or fabric
 
     /**
      *
@@ -55,9 +31,18 @@ public interface iChemElement {
      *                on best architecture
      *
      */
-    void setMutator(iMutator mutator);
 
-    //statefull methods
+
+    /** Standart Setters */
+    //region Setters
+    void setMutator(iMutator mutator);
+    void setNativeName(String name);
+    void setRadioactive(boolean radioactive);
+    void setMeltingPoint(float point);
+    void setBoilingPoint(float point);
+    void setDiscoveryYear(int year);
+    void setFamily(int family);
+    //endregion
 
     /**
      * This method is used to invo
@@ -69,6 +54,4 @@ public interface iChemElement {
      *
      */
     boolean doMutation();
-
-
 }

@@ -41,9 +41,18 @@ public class MainActivity extends AppCompatActivity {
         ChemElementContainer allElemenets = new ChemElementContainer();
         //init container from db
         allElemenets.initFromDb(getApplicationContext());
-        //get an elemnt
-        ChemElement mElement = allElemenets.getElementByNumber(1);
-        Log.d("mElement: ", mElement.getElementName() + " " + mElement.getElementSymbol());
+        //get an element
+        ChemElement mElement = allElemenets.getElementByNumber(2);
+        Log.d("Element", "Number " + mElement.getElementNumber());
+        Log.d("Element", "Symbol " + mElement.getElementSymbol());
+        Log.d("Element", "Atomic weight " + mElement.getAtomicWeight());
+        Log.d("Element", "Name " + mElement.getElementNativeName());
+        Log.d("Element", "Block " + mElement.getBlockName());
+        Log.d("Element", "Family " + mElement.getFamily());
+        Log.d("Element", "Radioactive " + mElement.isRadioactive());
+        Log.d("Element", "Melting Point " + mElement.getMeltingPoint());
+        Log.d("Element", "Boiling Point " + mElement.getBoilingPoint());
+        Log.d("Element", "Year " + mElement.getDiscoveryYear());
 
         //custom container
         ChemElementContainer mCustomContainer = new ChemElementContainer();
@@ -53,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
         HashMap<Integer, ChemElement> elemsFromCustomContainer = mCustomContainer.getAll();
 
         Log.d("Elems from custom ", elemsFromCustomContainer.toString());
-
-
 
     }
 }

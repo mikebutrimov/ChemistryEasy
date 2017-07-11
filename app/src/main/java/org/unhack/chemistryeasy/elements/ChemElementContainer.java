@@ -1,6 +1,7 @@
 package org.unhack.chemistryeasy.elements;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import org.unhack.chemistryeasy.db.DataBaseHelper;
@@ -18,7 +19,7 @@ public class ChemElementContainer {
     private HashMap<Integer, ChemElement> storage = new HashMap<>();
 
     /**
-     * This methods inits elemets database from sqllite datatbase
+     * This methods inits elemets database from sqllite database
      *
      * @param context - Application context to know where to find DataBase
      *
@@ -27,11 +28,34 @@ public class ChemElementContainer {
         this.storage.clear();
         DataBaseHelper db = new DataBaseHelper(context);
         ArrayList<String[]> elems = db.getAllElementsFromDB();
+        /**
+         *  0 - Atomic number   (int)
+         *  1 - Symbol          (string)
+         *  2 - English_name    (string)
+         *  3 - Russian_name    (string)
+         *  4 - Atomic_weight   (float)
+         *  5 - Block_name      (string)
+         *  6 - Family          (int)
+         *  7 - Radioactive     (int)
+         *  8 - Melting_point   (float)
+         *  9 - Boiling_point   (float)
+         *  10 - discovery_year (int)
+         */
         for (String[] rec : elems) {
             ChemElement bufElem = null;
             try {
-                bufElem = new ChemElement(Integer.parseInt(rec[0]),
-                        String.valueOf(rec[1]), Float.parseFloat(rec[4]));
+                bufElem = new ChemElement(Integer.parseInt(rec[0]),String.valueOf(rec[1]),
+                        String.valueOf(rec[2]), Float.parseFloat(rec[4]), Boolean.valueOf(rec[7]));
+                try {
+                    bufElem.setMeltingPoint(Float.valueOf(rec[8]));
+                    bufElem.setBoilingPoint(Float.valueOf(rec[9]));
+                    bufElem.setBlockName(String.valueOf(rec[5]));
+                    bufElem.setRadioactive(Boolean.valueOf(rec[7]));
+                    bufElem.setFamily(Integer.parseInt(rec[6]));
+                    bufElem.setDiscoveryYear(Integer.parseInt(rec[10]));
+                }
+                catch (NullPointerException e)
+                {return;}
                 }
             catch (NumberFormatException e){
                 String sWeight = rec[4];
@@ -39,8 +63,18 @@ public class ChemElementContainer {
                 Matcher mMatcher = mPattern.matcher(sWeight);
                 mMatcher.find();
                 try {
-                    bufElem = new ChemElement(Integer.parseInt(rec[0]),
-                            String.valueOf(rec[1]), Float.parseFloat(mMatcher.group()));
+                    bufElem = new ChemElement(Integer.parseInt(rec[0]),String.valueOf(rec[1]),
+                            String.valueOf(rec[2]), Float.parseFloat(mMatcher.group()), Boolean.valueOf(rec[7]));
+                    try {
+                        bufElem.setMeltingPoint(Float.valueOf(rec[8]));
+                        bufElem.setBoilingPoint(Float.valueOf(rec[9]));
+                        bufElem.setBlockName(String.valueOf(rec[5]));
+                        bufElem.setRadioactive(Boolean.valueOf(rec[7]));
+                        bufElem.setFamily(Integer.parseInt(rec[6]));
+                        bufElem.setDiscoveryYear(Integer.parseInt(rec[10]));
+                    }
+                    catch (NullPointerException d)
+                    {return;}
                 }
                 catch (Exception ee){
                     ee.printStackTrace();
