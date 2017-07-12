@@ -27,11 +27,25 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     static final String TABLE_Name = "Elements";
 
     public Context context;
+    public boolean isValid = false;
 
     static SQLiteDatabase mSqlLiteDatabase;
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null ,DATABASE_VERSION);
         this.context = context;
+        boolean databaseExist = this.checkDataBase();
+        if(databaseExist){
+            isValid = true;
+        }else {
+            this.getWritableDatabase();
+            try {
+                this.copyDataBase();
+                isValid = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                isValid = false;
+            }
+        }
     }
 
     /**

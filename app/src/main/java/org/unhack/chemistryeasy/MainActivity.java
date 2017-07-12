@@ -20,15 +20,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DataBaseHelper db = new DataBaseHelper(getApplicationContext());
-        try {
-            db.createDataBase();
+
+        if (db.isValid) {
+            db.openDataBase();
         }
-        catch (IOException ex)
-        {
-            String ds = ex.toString();
-            Log.d("Tab", ds);
+        else {
+            Log.d("DB", "problem, db was not inited well");
         }
-        db.openDataBase();
         ArrayList<String[]> allElements = db.getAllElementsFromDB();
         //debug Log.d output to check correct db reading
         for (String[] rec: allElements){

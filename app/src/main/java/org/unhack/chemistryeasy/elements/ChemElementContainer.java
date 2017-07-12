@@ -21,9 +21,16 @@ public class ChemElementContainer {
      * @param context - Application context to know where to find DataBase
      *
      */
-    public void initFromDb(Context context) {
+    public boolean initFromDb(Context context) {
+        if (context == null) return false;
         this.storage.clear();
         DataBaseHelper db = new DataBaseHelper(context);
+        if (db.isValid) {
+            db.openDataBase();
+        }
+        else {
+            return false;
+        }
         ArrayList<String[]> elems = db.getAllElementsFromDB();
         /**
          *  0 - Atomic number   (int)
@@ -67,6 +74,8 @@ public class ChemElementContainer {
                 this.storage.put(bufElem.getElementNumber(), bufElem);
             }
         }
+        if (this.storage.isEmpty()) return false;
+        return true;
     }
 
     /**
@@ -82,13 +91,8 @@ public class ChemElementContainer {
     public HashMap<Integer, ChemElement> getFilteredElements(int[] filter){
         HashMap<Integer, ChemElement> result = new HashMap<>();
         for (int elemNumber: filter){
-            try {
+            if (this.storage.containsKey(elemNumber)) {
                 result.put(elemNumber, this.storage.get(elemNumber));
-            }
-            catch (NullPointerException npe){
-                //filter contains elem number but container storage does not
-                //need to think out this problem
-                npe.printStackTrace();
             }
         }
         return result;
@@ -107,7 +111,9 @@ public class ChemElementContainer {
      * @param elem - element to put into container
      */
     public void putElement(ChemElement elem){
-        this.storage.put(elem.getElementNumber(), elem);
+        if (elem != null) {
+            this.storage.put(elem.getElementNumber(), elem);
+        }
     }
 
 }
