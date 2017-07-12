@@ -38,11 +38,20 @@ public class MainActivity extends AppCompatActivity {
 
         //Example how to use chemelem and chemelemcontainer
 
-        ChemElementContainer allElemenets = new ChemElementContainer();
+        ChemElementContainer allElementsContainer = new ChemElementContainer();
         //init container from db
-        allElemenets.initFromDb(getApplicationContext());
+        allElementsContainer.initFromDb(getApplicationContext());
+
+        //get elems by filter
+        int[] filter = {1,2,3};
+        HashMap<Integer, ChemElement> filterdElems = allElementsContainer.getFilteredElements(filter);
+        Log.d("Elems from filter ", filterdElems.toString());
+
+
+
+
         //get an element
-        ChemElement mElement = allElemenets.getElementByNumber(2);
+        ChemElement mElement = allElementsContainer.getElementByNumber(2);
         Log.d("Element", "Number " + mElement.getElementNumber());
         Log.d("Element", "Symbol " + mElement.getElementSymbol());
         Log.d("Element", "Atomic weight " + mElement.getAtomicWeight());
@@ -57,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         //custom container
         ChemElementContainer mCustomContainer = new ChemElementContainer();
         mCustomContainer.putElement(mElement);
-        mCustomContainer.putElement(allElemenets.getElementByNumber(2));
+        mCustomContainer.putElement(allElementsContainer.getElementByNumber(2));
 
         HashMap<Integer, ChemElement> elemsFromCustomContainer = mCustomContainer.getAll();
 

@@ -78,6 +78,22 @@ public class ChemElementContainer {
         return this.storage.get(number);
     }
 
+
+    public HashMap<Integer, ChemElement> getFilteredElements(int[] filter){
+        HashMap<Integer, ChemElement> result = new HashMap<>();
+        for (int elemNumber: filter){
+            try {
+                result.put(elemNumber, this.storage.get(elemNumber));
+            }
+            catch (NullPointerException npe){
+                //filter contains elem number but container storage does not
+                //need to think out this problem
+                npe.printStackTrace();
+            }
+        }
+        return result;
+    }
+
     /**
      *
      * @return all elements in container
