@@ -1,6 +1,12 @@
 package org.unhack.chemistryeasy.elements;
 
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import org.unhack.chemistryeasy.R;
 import org.unhack.chemistryeasy.mutators.iMutator;
 
 /**
@@ -11,7 +17,16 @@ import org.unhack.chemistryeasy.mutators.iMutator;
 
 
 
-public class ChemElement implements iChemElement {
+public class ChemElement extends RelativeLayout implements iChemElement {
+    /** UI */
+    TextView symbol_view;
+    TextView number_view;
+    TextView mass_view;
+    TextView first_name_view;
+    TextView second_name_view;
+    RelativeLayout element_box;
+    /***/
+
     private int number;
     private int family;
     private int discovery_year;
@@ -26,34 +41,51 @@ public class ChemElement implements iChemElement {
 
     /**
      * Default constructor
-     * with only 3 params
      *
      */
-    public ChemElement(int number, String symbol, String name, float atomic_weight, boolean radioactive){
-        this.number = number;
-        this.symbol = symbol;
-        this.atomic_weight = atomic_weight;
-        this.native_name = name;
+    public ChemElement(Context context,int number, String symbol, String name, float atomic_weight, boolean radioactive){
+        super(context);
+        init();
+        this.number = number;number_view.setText(String.valueOf(number));
+        this.symbol = symbol;symbol_view.setText(symbol);
+        this.atomic_weight = atomic_weight;mass_view.setText(String.valueOf(atomic_weight));
+        this.native_name = name;first_name_view.setText(name);
         this.radioactive = radioactive;
+    }
+    public void init() {
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.element_layout, this);
+        symbol_view = (TextView) findViewById(R.id.symbol);
+        number_view = (TextView) findViewById(R.id.number);
+        mass_view = (TextView) findViewById(R.id.mass);
+        first_name_view = (TextView) findViewById(R.id.first_name);
+        second_name_view = (TextView) findViewById(R.id.second_name);
+        element_box = (RelativeLayout) findViewById(R.id.element_box);
+        /** Radioactive and S,P,D,F */
+        if (this.radioactive)
+        {
+            // radioactive
+        }
+        // Block...........
     }
 
     /** Number */
     public int getElementNumber(){
         return this.number;
     }
-    public void setElementNumber(int number) { this.number = number; }
+    public void setElementNumber(int number) { this.number = number; number_view.setText(String.valueOf(number));}
 
     /** Symbol */
     public String getElementSymbol(){return this.symbol;}
-    public void setElementSymbol(String symbol) {this.symbol = symbol;}
+    public void setElementSymbol(String symbol) {this.symbol = symbol;symbol_view.setText(symbol);}
 
     /** Atomic Weight */
     public float getAtomicWeight(){return this.atomic_weight;}
-    public void setAtomic_weight(Float atomic_weight){this.atomic_weight = atomic_weight;}
+    public void setAtomic_weight(Float atomic_weight){this.atomic_weight = atomic_weight;mass_view.setText(String.valueOf(atomic_weight));}
 
     /** Element Native Name */
     public String getElementNativeName(){return this.native_name;}
-    public void setNativeName(String name) {this.native_name = name;}
+    public void setNativeName(String name) {this.native_name = name; first_name_view.setText(name);}
 
     /** Block */
     public String getBlockName(){

@@ -13,6 +13,13 @@ import java.util.regex.Pattern;
  */
 
 public class ChemElementContainer {
+    Context context;
+    public ChemElementContainer(Context context)
+    {
+        this.context = context;
+    }
+
+
     private HashMap<Integer, ChemElement> storage = new HashMap<>();
 
     /**
@@ -48,7 +55,7 @@ public class ChemElementContainer {
         for (String[] rec : elems) {
             ChemElement bufElem = null;
             try {
-                bufElem = new ChemElement(Integer.parseInt(rec[0]),String.valueOf(rec[1]),
+                bufElem = new ChemElement(context,Integer.parseInt(rec[0]),String.valueOf(rec[1]),
                         String.valueOf(rec[2]), Float.parseFloat(rec[4]), Boolean.valueOf(rec[7]));
                 }
             catch (NumberFormatException e){
@@ -57,7 +64,7 @@ public class ChemElementContainer {
                 Matcher mMatcher = mPattern.matcher(sWeight);
                 mMatcher.find();
                 try {
-                    bufElem = new ChemElement(Integer.parseInt(rec[0]),String.valueOf(rec[1]),
+                    bufElem = new ChemElement(context,Integer.parseInt(rec[0]),String.valueOf(rec[1]),
                             String.valueOf(rec[2]), Float.parseFloat(mMatcher.group()), Boolean.valueOf(rec[7]));
                 }
                 catch (Exception ee){

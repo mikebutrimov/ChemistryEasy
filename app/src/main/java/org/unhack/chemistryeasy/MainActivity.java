@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.GridLayout;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import org.unhack.chemistryeasy.db.DataBaseHelper;
 import org.unhack.chemistryeasy.elements.ChemElement;
@@ -36,17 +39,25 @@ public class MainActivity extends AppCompatActivity {
 
         //Example how to use chemelem and chemelemcontainer
 
-        ChemElementContainer allElementsContainer = new ChemElementContainer();
+        ChemElementContainer allElementsContainer = new ChemElementContainer(getApplicationContext());
         //init container from db
         allElementsContainer.initFromDb(getApplicationContext());
 
         //get elems by filter
-        int[] filter = {1,2,3};
+        int[] filter = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
         HashMap<Integer, ChemElement> filterdElems = allElementsContainer.getFilteredElements(filter);
         Log.d("Elems from filter ", filterdElems.toString());
 
 
-
+        /** ----------UI-----------*/
+        GridLayout grid = (GridLayout) findViewById(R.id.la);
+        HashMap all = allElementsContainer.getAll();
+        for (int i = 1; i < all.size(); i++)
+        {
+            ChemElement elem = allElementsContainer.getAll().get(i);
+            grid.addView(elem);
+        }
+        /** --------------------------*/
 
         //get an element
         ChemElement mElement = allElementsContainer.getElementByNumber(2);
@@ -62,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Element", "Year " + mElement.getDiscoveryYear());
 
         //custom container
-        ChemElementContainer mCustomContainer = new ChemElementContainer();
+        ChemElementContainer mCustomContainer = new ChemElementContainer(getApplicationContext());
         mCustomContainer.putElement(mElement);
         mCustomContainer.putElement(allElementsContainer.getElementByNumber(2));
 
