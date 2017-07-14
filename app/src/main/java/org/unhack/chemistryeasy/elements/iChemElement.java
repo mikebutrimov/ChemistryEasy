@@ -10,6 +10,8 @@ import org.unhack.chemistryeasy.mutators.iMutator;
 public interface iChemElement {
     /** Standart Getters */
     //region Getters
+    int getBoxHeight();
+    int getBoxWidth();
     String getElementNativeName();
     int getElementNumber();
     float getAtomicWeight();
@@ -42,6 +44,7 @@ public interface iChemElement {
     void setBoilingPoint(float point);
     void setDiscoveryYear(int year);
     void setFamily(int family);
+    void setSize(int width, int height);
     //endregion
 
     /**

@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
+import static android.support.test.InstrumentationRegistry.getContext;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.*;
 
@@ -24,7 +25,7 @@ public class ChemElementContainerTest {
 
     @Test
     public void initFromDb() throws Exception {
-        ChemElementContainer mContainer = new ChemElementContainer();
+        ChemElementContainer mContainer = new ChemElementContainer(getContext());
         assertFalse(mContainer.initFromDb(null));
         assertTrue(mContainer.initFromDb(appContext));
         assertEquals("H", mContainer.getElementByNumber(1).getElementSymbol());
@@ -32,7 +33,7 @@ public class ChemElementContainerTest {
 
     @Test
     public void getElementByNumber() throws Exception {
-        ChemElementContainer mContainer = new ChemElementContainer();
+        ChemElementContainer mContainer = new ChemElementContainer(getContext());
         mContainer.initFromDb(appContext);
         assertEquals("H", mContainer.getElementByNumber(1).getElementSymbol());
         assertEquals("He", mContainer.getElementByNumber(2).getElementSymbol());
@@ -45,7 +46,7 @@ public class ChemElementContainerTest {
     @Test
     public void getFilteredElements() throws Exception {
         int[] filter = {1,2};
-        ChemElementContainer mContainer = new ChemElementContainer();
+        ChemElementContainer mContainer = new ChemElementContainer(getContext());
         mContainer.initFromDb(appContext);
         assertEquals(2, mContainer.getFilteredElements(filter).size());
         int[] falseFilter = {1,2,3,234,546,567,435,-1};
@@ -55,7 +56,7 @@ public class ChemElementContainerTest {
 
     @Test
     public void getAll() throws Exception {
-        ChemElementContainer mContainer = new ChemElementContainer();
+        ChemElementContainer mContainer = new ChemElementContainer(getContext());
         mContainer.initFromDb(appContext);
         HashMap<Integer, ChemElement> elems = mContainer.getAll();
         assertEquals(elems.size(), NUMBER_OF_ELEMENTS);
@@ -63,10 +64,10 @@ public class ChemElementContainerTest {
 
     @Test
     public void putElement() throws Exception {
-        ChemElementContainer mContainer = new ChemElementContainer();
+        ChemElementContainer mContainer = new ChemElementContainer(getContext());
         mContainer.putElement(null);
         assertEquals(0, mContainer.getAll().size());
-        ChemElement mCustomElem = new ChemElement(120, "symbol", "name", (float)1.03, false);
+        ChemElement mCustomElem = new ChemElement(getContext(),120, "symbol", "name", (float)1.03, false);
         mContainer.putElement(mCustomElem);
     }
 

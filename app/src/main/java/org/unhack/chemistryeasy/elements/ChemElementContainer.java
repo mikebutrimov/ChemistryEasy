@@ -1,6 +1,10 @@
 package org.unhack.chemistryeasy.elements;
 
 import android.content.Context;
+import android.util.AttributeSet;
+import android.view.ViewGroup;
+import android.widget.TableRow;
+
 import org.unhack.chemistryeasy.db.DataBaseHelper;
 
 import java.util.ArrayList;
@@ -52,6 +56,7 @@ public class ChemElementContainer {
          *  9 - Boiling_point   (float)
          *  10 - discovery_year (int)
          */
+
         for (String[] rec : elems) {
             ChemElement bufElem = null;
             try {
@@ -112,6 +117,7 @@ public class ChemElementContainer {
     public HashMap<Integer, ChemElement> getAll(){
         return this.storage;
     }
+    public int getSize() {return this.storage.size();}
 
     /**
      *
@@ -122,5 +128,6 @@ public class ChemElementContainer {
             this.storage.put(elem.getElementNumber(), elem);
         }
     }
+
 
 }

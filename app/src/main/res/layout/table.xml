@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tes"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="horizontal">
 
-    <HorizontalScrollView
+    <GridLayout
+        android:id="@+id/table_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:columnCount="18"
+        android:rowCount="7">
 
-        <GridLayout
-            android:id="@+id/la"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-        </GridLayout>
-    </HorizontalScrollView>
-</GridLayout>
+    </GridLayout>
+
+</RelativeLayout>

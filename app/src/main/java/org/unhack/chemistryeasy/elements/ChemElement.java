@@ -2,10 +2,11 @@ package org.unhack.chemistryeasy.elements;
 
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import org.unhack.chemistryeasy.R;
 import org.unhack.chemistryeasy.mutators.iMutator;
 
@@ -52,6 +53,16 @@ public class ChemElement extends RelativeLayout implements iChemElement {
         this.native_name = name;first_name_view.setText(name);
         this.radioactive = radioactive;
     }
+    public ChemElement(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public ChemElement(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init();
+    }
+
     public void init() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.element_layout, this);
@@ -66,7 +77,22 @@ public class ChemElement extends RelativeLayout implements iChemElement {
         {
             // radioactive
         }
-        // Block...........
+/*        switch (block) {
+            case "S":
+                element_box.setBackgroundColor(Color.parseColor("#E87891"));
+                break;
+            case "P":
+                element_box.setBackgroundColor(Color.parseColor("#F5DA67"));
+                break;
+            case "D":
+                element_box.setBackgroundColor(Color.parseColor("#4EBDD1"));
+                break;
+            case "F":
+                element_box.setBackgroundColor(Color.parseColor("#ABD3AE"));
+                break;
+            default:
+                return;
+        }*/
     }
 
     /** Number */
@@ -113,6 +139,11 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     /**Family */
     public int getFamily() {return this.family;}
     public void setFamily(int family) {this.family = family;}
+
+    /** Size */
+    public int getBoxWidth() {return element_box.getWidth();}
+    public int getBoxHeight() {return element_box.getHeight();}
+    public void setSize(int width, int height) {element_box.setLayoutParams(new LayoutParams(width, height));}
 
     //region Mutator
     public void setMutator(iMutator mutator){
