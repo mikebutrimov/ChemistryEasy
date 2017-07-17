@@ -77,22 +77,6 @@ public class ChemElement extends RelativeLayout implements iChemElement {
         {
             // radioactive
         }
-/*        switch (block) {
-            case "S":
-                element_box.setBackgroundColor(Color.parseColor("#E87891"));
-                break;
-            case "P":
-                element_box.setBackgroundColor(Color.parseColor("#F5DA67"));
-                break;
-            case "D":
-                element_box.setBackgroundColor(Color.parseColor("#4EBDD1"));
-                break;
-            case "F":
-                element_box.setBackgroundColor(Color.parseColor("#ABD3AE"));
-                break;
-            default:
-                return;
-        }*/
     }
 
     /** Number */
@@ -114,11 +98,29 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     public void setNativeName(String name) {this.native_name = name; first_name_view.setText(name);}
 
     /** Block */
-    public String getBlockName(){
-        //if (this.block.isEmpty()) return null;
-        return this.block;
+    public String getBlockName(){return this.block;
     }
     public void setBlockName(String block) {this.block = block;}
+    public void colorise()
+    {
+        switch (block) {
+            case "s":
+                element_box.setBackgroundColor(Color.parseColor("#E87891"));
+                break;
+            case "p":
+                element_box.setBackgroundColor(Color.parseColor("#F5DA67"));
+                break;
+            case "d":
+                element_box.setBackgroundColor(Color.parseColor("#4EBDD1"));
+                break;
+            case "f":
+                element_box.setBackgroundColor(Color.parseColor("#ABD3AE"));
+                break;
+            default:
+                element_box.setBackgroundColor(Color.parseColor("#6b6b6b"));
+                return;
+        }
+    }
 
     /** Radioactive */
     public boolean isRadioactive() {return this.radioactive;}

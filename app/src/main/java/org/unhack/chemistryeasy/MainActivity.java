@@ -5,8 +5,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -35,22 +38,27 @@ public class MainActivity extends AppCompatActivity {
         else {
             Log.d("DB", "problem, db was not inited well");
         }
-        //Example how to use chemelem and chemelemcontainer
+        Ui_init();
 
+    }
+
+    public void Ui_init()
+    {/** --------------- UI ----------- */
         ChemElementContainer allElementsContainer = new ChemElementContainer(getApplicationContext());
         allElementsContainer.initFromDb(getApplicationContext());
-
-        /** UI */
         TextView textView = new TextView(getApplicationContext());
         textView.setBackgroundColor(Color.RED);
         textView.setText("Layout 'Big View Element'");
         RelativeLayout big_view = new RelativeLayout(getApplicationContext());
-        big_view.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,2), GridLayout.spec(2,10)));
+        big_view.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10)));
         big_view.addView(textView);
+
+
         Space space = new Space(getApplicationContext());
         Space space2 = new Space(getApplicationContext());
         space2.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,0), GridLayout.spec(12,5)));
         GridLayout table = (GridLayout) findViewById(R.id.table_layout);
+        GridLayout lantan = (GridLayout) findViewById(R.id.lantan);
         ChemElement buf;
         for(int i = 0; i < allElementsContainer.getSize(); i++) {
             buf = allElementsContainer.getElementByNumber(i + 1);
@@ -61,11 +69,26 @@ public class MainActivity extends AppCompatActivity {
                     table.addView(space2);
                     break;
             }
-            table.addView(buf);
+            if(buf.getElementNumber() >= 58 && buf.getElementNumber() <= 71)
+            {
+                lantan.addView(buf);
+            } else if(buf.getElementNumber() >= 90 && buf.getElementNumber() <= 103){
+                lantan.addView(buf);
+            }
+            else {
+                table.addView(buf);
+            }
+        }
+        /** Test Filter */
+        int r[] = {2,3,5,6,7,8,9,11,12};
+        HashMap el = allElementsContainer.getFilteredElements(r);
+        for(int i = 0; i < el.size(); i++) {
+            ChemElement s = (ChemElement) el.get(r[i]);
+            s.setBackgroundColor(Color.RED);
+
         }
 
-        ChemElement el = allElementsContainer.getElementByNumber(4);
-        el.setBackgroundColor(Color.RED);
+
     }
 
 

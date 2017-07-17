@@ -45,6 +45,7 @@ public interface iChemElement {
     void setDiscoveryYear(int year);
     void setFamily(int family);
     void setSize(int width, int height);
+    void colorise();
     //endregion
 
     /**

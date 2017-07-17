@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
     android:orientation="horizontal">
 
-    <GridLayout
-        android:id="@+id/table_layout"
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="18"
-        android:rowCount="7">
+        android:layout_height="match_parent" >
+
+        <GridLayout
+            android:id="@+id/table_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="18"
+            android:rowCount="7">
+
+        </GridLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="match_parent" >
+
+        <GridLayout
+            android:id="@+id/lantan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="14"
+            android:rowCount="2"
+            android:layout_gravity="center_horizontal"
+            >
+
+        </GridLayout>
+    </TableRow>
 
 
-    </GridLayout>
-
-</RelativeLayout>
+</TableLayout>

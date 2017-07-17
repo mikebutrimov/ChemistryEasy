@@ -83,6 +83,7 @@ public class ChemElementContainer {
                 if (rec[7] != null) bufElem.setRadioactive(Boolean.valueOf(rec[7]));
                 if (rec[6] != null) bufElem.setFamily(Integer.parseInt(rec[6]));
                 if (rec[10] != null) bufElem.setDiscoveryYear(Integer.parseInt(rec[10]));
+                bufElem.colorise();
                 this.storage.put(bufElem.getElementNumber(), bufElem);
             }
         }
