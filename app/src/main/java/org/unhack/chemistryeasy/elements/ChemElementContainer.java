@@ -1,12 +1,11 @@
 package org.unhack.chemistryeasy.elements;
 
 import android.content.Context;
-import android.util.AttributeSet;
-import android.view.ViewGroup;
-import android.widget.TableRow;
-
+import android.graphics.Color;
+import android.util.Log;
+import android.view.View;
+import org.unhack.chemistryeasy.BigViewController;
 import org.unhack.chemistryeasy.db.DataBaseHelper;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -17,21 +16,15 @@ import java.util.regex.Pattern;
  */
 
 public class ChemElementContainer {
-    Context context;
+    private Context context;
+
     public ChemElementContainer(Context context)
     {
         this.context = context;
     }
 
-
     private HashMap<Integer, ChemElement> storage = new HashMap<>();
 
-    /**
-     * This methods inits elemets database from sqllite database
-     *
-     * @param context - Application context to know where to find DataBase
-     *
-     */
     public boolean initFromDb(Context context) {
         if (context == null) return false;
         this.storage.clear();
@@ -43,6 +36,7 @@ public class ChemElementContainer {
             return false;
         }
         ArrayList<String[]> elems = db.getAllElementsFromDB();
+
         /**
          *  0 - Atomic number   (int)
          *  1 - Symbol          (string)
@@ -87,15 +81,9 @@ public class ChemElementContainer {
                 this.storage.put(bufElem.getElementNumber(), bufElem);
             }
         }
-        if (this.storage.isEmpty()) return false;
-        return true;
+        return this.storage.isEmpty();
     }
 
-    /**
-     *
-     * @param number - number of element in periodic table
-     * @return ChemElement instance
-     */
     public ChemElement getElementByNumber(int number){
         return this.storage.get(number);
     }
@@ -111,24 +99,14 @@ public class ChemElementContainer {
         return result;
     }
 
-    /**
-     *
-     * @return all elements in container
-     */
     public HashMap<Integer, ChemElement> getAll(){
         return this.storage;
     }
     public int getSize() {return this.storage.size();}
 
-    /**
-     *
-     * @param elem - element to put into container
-     */
     public void putElement(ChemElement elem){
         if (elem != null) {
             this.storage.put(elem.getElementNumber(), elem);
         }
     }
-
-
 }

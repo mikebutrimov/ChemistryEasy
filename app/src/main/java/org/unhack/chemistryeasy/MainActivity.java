@@ -4,11 +4,13 @@ import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.GridView;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
+    BigViewController big_view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,20 +42,16 @@ public class MainActivity extends AppCompatActivity {
             Log.d("DB", "problem, db was not inited well");
         }
         Ui_init();
-
     }
 
-    public void Ui_init()
-    {/** --------------- UI ----------- */
+    /** --------------- UI ----------- */
+    public void Ui_init(){
         ChemElementContainer allElementsContainer = new ChemElementContainer(getApplicationContext());
         allElementsContainer.initFromDb(getApplicationContext());
-        TextView textView = new TextView(getApplicationContext());
-        textView.setBackgroundColor(Color.RED);
-        textView.setText("Layout 'Big View Element'");
-        RelativeLayout big_view = new RelativeLayout(getApplicationContext());
-        big_view.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10)));
-        big_view.addView(textView);
 
+        big_view = new BigViewController(getApplicationContext());
+        big_view.setElementToView(10);
+        big_view.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10)));
 
         Space space = new Space(getApplicationContext());
         Space space2 = new Space(getApplicationContext());
@@ -84,12 +83,8 @@ public class MainActivity extends AppCompatActivity {
         HashMap el = allElementsContainer.getFilteredElements(r);
         for(int i = 0; i < el.size(); i++) {
             ChemElement s = (ChemElement) el.get(r[i]);
-            s.setBackgroundColor(Color.RED);
-
+            //s.setBackgroundColor(Color.RED);
         }
 
-
     }
-
-
 }

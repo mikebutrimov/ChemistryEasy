@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">ChemistryEasy</string>
+    <string-array name="views_array">
+        <item>Первый экран</item>
+        <item>Второй экран</item>
+        <item>Третий экран</item>
+    </string-array>
+    <string name="menu">Меню</string>
+    <string name="first_screen">Первый экран</string>
+    <string name="second_screen">Второй экран</string>
+    <string name="third_screen">Третий экран</string>
+    <string name="open_menu">Open</string>
+    <string name="close_menu">Close</string>
 </resources>

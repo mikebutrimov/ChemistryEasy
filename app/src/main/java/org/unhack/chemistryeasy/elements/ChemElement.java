@@ -98,8 +98,7 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     public void setNativeName(String name) {this.native_name = name; first_name_view.setText(name);}
 
     /** Block */
-    public String getBlockName(){return this.block;
-    }
+    public String getBlockName(){return this.block;}
     public void setBlockName(String block) {this.block = block;}
     public void colorise()
     {
