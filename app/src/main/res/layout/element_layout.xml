@@ -3,7 +3,7 @@
     android:id="@+id/element_box"
     android:layout_width="@dimen/_28sdp"
     android:layout_height="@dimen/_24sdp"
-    android:layout_margin="0.5dp"
+    android:layout_margin="0.0001dp"
     android:background="#E87891"
     android:padding="1dp">
 

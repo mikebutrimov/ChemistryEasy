@@ -78,6 +78,7 @@
             android:layout_below="@+id/big_native_name"
             android:textColor="#000"
             android:textSize="@dimen/_8sdp" />
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

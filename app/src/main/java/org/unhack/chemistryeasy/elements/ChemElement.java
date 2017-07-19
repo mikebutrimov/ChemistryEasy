@@ -4,9 +4,13 @@ package org.unhack.chemistryeasy.elements;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.unhack.chemistryeasy.BigViewController;
 import org.unhack.chemistryeasy.R;
 import org.unhack.chemistryeasy.mutators.iMutator;
 
@@ -39,7 +43,6 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     private float atomic_weight;
     private boolean radioactive;
     private iMutator mutator;
-
     /**
      * Default constructor
      *
@@ -145,6 +148,9 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     public int getBoxWidth() {return element_box.getWidth();}
     public int getBoxHeight() {return element_box.getHeight();}
     public void setSize(int width, int height) {element_box.setLayoutParams(new LayoutParams(width, height));}
+
+    /** Color */
+    public void setColor(String color){element_box.setBackgroundColor(Color.parseColor(color));}
 
     //region Mutator
     public void setMutator(iMutator mutator){

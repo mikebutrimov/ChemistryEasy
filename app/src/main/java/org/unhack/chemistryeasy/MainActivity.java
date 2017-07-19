@@ -1,6 +1,7 @@
 package org.unhack.chemistryeasy;
 
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.Space;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -28,8 +30,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     BigViewController big_view;
+    ChemElementContainer allElementsContainer;
+    SeekBar temp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
     /** --------------- UI ----------- */
     public void Ui_init(){
-        ChemElementContainer allElementsContainer = new ChemElementContainer(getApplicationContext());
+        allElementsContainer = new ChemElementContainer(getApplicationContext());
         allElementsContainer.initFromDb(getApplicationContext());
-
+        //allElementsContainer.getStateInTemp(51);
         big_view = new BigViewController(getApplicationContext());
         big_view.setElementToView(10);
         big_view.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10)));
@@ -58,9 +63,10 @@ public class MainActivity extends AppCompatActivity {
         space2.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,0), GridLayout.spec(12,5)));
         GridLayout table = (GridLayout) findViewById(R.id.table_layout);
         GridLayout lantan = (GridLayout) findViewById(R.id.lantan);
-        ChemElement buf;
+
         for(int i = 0; i < allElementsContainer.getSize(); i++) {
-            buf = allElementsContainer.getElementByNumber(i + 1);
+            ChemElement buf = allElementsContainer.getElementByNumber(i + 1);
+            buf.setOnClickListener(this);
             switch (buf.getElementNumber()){
                 case 2:
                     table.addView(space);
@@ -85,6 +91,18 @@ public class MainActivity extends AppCompatActivity {
             ChemElement s = (ChemElement) el.get(r[i]);
             //s.setBackgroundColor(Color.RED);
         }
+        temp = (SeekBar) findViewById(R.id.temp);
+
+
 
     }
+
+    @Override
+    public void onClick(View v) {
+        allElementsContainer.getStateInTemp(temp.getProgress());
+        ChemElement el = (ChemElement) v;
+        big_view.setElementToView(el.getElementNumber());
+
+    }
+
 }
