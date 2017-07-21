@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/big_view"
     android:layout_width="@dimen/_283sdp"
-    android:layout_height="@dimen/_71sdp"
+    android:layout_height="@dimen/_72sdp"
     android:layout_margin="@dimen/_2sdp"
     android:background="#a3a3a3"
     android:orientation="horizontal"

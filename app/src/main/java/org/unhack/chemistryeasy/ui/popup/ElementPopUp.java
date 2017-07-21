@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import org.unhack.chemistryeasy.R;
@@ -35,8 +36,6 @@ public class ElementPopUp {
         this.element = element;
         this.context = context;
         this.parentView = parentView;
-
-
     }
 
     public void show(){
@@ -80,10 +79,20 @@ public class ElementPopUp {
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         int x = (int) parentView.getX();
-        int y = (int)  parentView.getY();
+        int y = (int) parentView.getY();
         Log.d("Coords", "X: " + String.valueOf(x) + "   Y: " + String.valueOf(y));
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-        popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x, y);
+        if(element.getElementNumber() >= 58 && element.getElementNumber() <= 71 || element.getElementNumber() >= 90 && element.getElementNumber() <= 103)
+        {
+            Log.d("Coords2", "X: " + String.valueOf(x) + "   Y: " + String.valueOf(y));
+            int[] location = new int[2];
+            element.getLocationInWindow(location);
+            int x2 = location[0];
+            int y2 = location[1];
+            popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x2,y2 - element.getHeight() * 3);
+
+        }else {
+        popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x, y);}
 
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
