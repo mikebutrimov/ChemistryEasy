@@ -25,6 +25,7 @@ import android.widget.TextView;
 import org.unhack.chemistryeasy.db.DataBaseHelper;
 import org.unhack.chemistryeasy.elements.ChemElement;
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
+import org.unhack.chemistryeasy.ui.popup.ElementPopUp;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,8 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         allElementsContainer.initFromDb(getApplicationContext());
         //allElementsContainer.getStateInTemp(51);
         big_view = new BigViewController(getApplicationContext());
-        big_view.setElementToView(10);
-        big_view.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10)));
+        //big_view.setElementToView(10);
+        //big_view.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10)));
 
         Space space = new Space(getApplicationContext());
         Space space2 = new Space(getApplicationContext());
@@ -70,10 +71,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (buf.getElementNumber()){
                 case 2:
                     table.addView(space);
-                    table.addView(big_view);
+                    //table.addView(big_view);
                     table.addView(space2);
                     break;
             }
+
             if(buf.getElementNumber() >= 58 && buf.getElementNumber() <= 71)
             {
                 lantan.addView(buf);
@@ -101,7 +103,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         allElementsContainer.getStateInTemp(temp.getProgress());
         ChemElement el = (ChemElement) v;
-        big_view.setElementToView(el.getElementNumber());
+        //big_view.setElementToView(el.getElementNumber());
+        ElementPopUp popUp = new ElementPopUp((ChemElement) v,getApplicationContext(),v);
+        popUp.show();
+        Log.d("EL ELEMENT", ((ChemElement) v).getElementNativeName());
 
     }
 
