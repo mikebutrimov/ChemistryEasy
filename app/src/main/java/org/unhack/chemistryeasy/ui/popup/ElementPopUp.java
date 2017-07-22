@@ -8,6 +8,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -39,9 +41,9 @@ public class ElementPopUp {
     }
 
     public void show(){
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.big_view_element, null);
-
         symbol = (TextView) popupView.findViewById(R.id.big_symbol);
         number = (TextView) popupView.findViewById(R.id.big_number);
         big_view_layout = (CardView) popupView.findViewById(R.id.big_view);
@@ -74,7 +76,6 @@ public class ElementPopUp {
         }
         if(element.isRadioactive()) {//show logo of radioactive
         }
-
         boolean focusable = true;
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -86,14 +87,15 @@ public class ElementPopUp {
         {
             Log.d("Coords2", "X: " + String.valueOf(x) + "   Y: " + String.valueOf(y));
             int[] location = new int[2];
-            element.getLocationInWindow(location);
-            int x2 = location[0];
-            int y2 = location[1];
-            popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x2,y2 - element.getHeight() * 3);
+            element.getLocationOnScreen(location);
+            x = location[0];
+            y = location[1];
+            popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x,y - element.getHeight() * 3);
+            popupView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.table_element_anim));
 
         }else {
+        popupView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.table_element_anim));
         popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x, y);}
-
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -102,5 +104,4 @@ public class ElementPopUp {
             }
         });
     }
-
 }

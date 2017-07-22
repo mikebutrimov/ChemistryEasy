@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener{
     BigViewController big_view;
     ChemElementContainer allElementsContainer;
     SeekBar temp;
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for(int i = 0; i < allElementsContainer.getSize(); i++) {
             ChemElement buf = allElementsContainer.getElementByNumber(i + 1);
             buf.setOnClickListener(this);
+            buf.setOnLongClickListener(this);
             switch (buf.getElementNumber()){
                 case 2:
                     table.addView(space);
@@ -98,15 +99,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
     @Override
     public void onClick(View v) {
         allElementsContainer.getStateInTemp(temp.getProgress());
         ChemElement el = (ChemElement) v;
         ElementPopUp popUp = new ElementPopUp((ChemElement) v,getApplicationContext(),v);
         popUp.show();
-        Log.d("EL ELEMENT", ((ChemElement) v).getElementNativeName());
-
+        Log.d("ELEMENT", ((ChemElement) v).getElementNativeName());
     }
 
+    @Override
+    public boolean onLongClick(View v) {
+
+        ChemElement el = (ChemElement) v;
+        int num = el.getElementNumber();
+        big_view.setElementToView(num);
+        return true;
+    }
 }
