@@ -152,6 +152,15 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     /** Color */
     public void setColor(String color){element_box.setBackgroundColor(Color.parseColor(color));}
 
+
+    /** Lantanoid */
+    public boolean isLantanoid()
+    {
+        if(this.getElementNumber() >= 58 && this.getElementNumber() <= 71 || this.getElementNumber() >= 90 && this.getElementNumber() <= 103)
+        {return true;}
+        else{return false;}
+    }
+
     //region Mutator
     public void setMutator(iMutator mutator){
         this.mutator = mutator;

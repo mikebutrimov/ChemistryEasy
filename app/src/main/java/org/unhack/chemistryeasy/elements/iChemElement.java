@@ -16,6 +16,7 @@ public interface iChemElement {
     int getElementNumber();
     float getAtomicWeight();
     boolean isRadioactive();
+    boolean isLantanoid();
     String getElementSymbol();
     int getFamily();
     float getMeltingPoint();

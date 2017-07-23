@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for(int i = 0; i < allElementsContainer.getSize(); i++) {
             ChemElement buf = allElementsContainer.getElementByNumber(i + 1);
-            buf.setOnClickListener(this);
-            buf.setOnLongClickListener(this);
             switch (buf.getElementNumber()){
                 case 2:
                     table.addView(space);
@@ -86,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else {
                 table.addView(buf);
             }
+            buf.setOnClickListener(this);
+            buf.setOnLongClickListener(this);
         }
         /** Test Filter */
         int r[] = {2,3,5,6,7,8,9,11,12};
@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ChemElement s = (ChemElement) el.get(r[i]);
             //s.setBackgroundColor(Color.RED);
         }
-        temp = (SeekBar) findViewById(R.id.temp);
 
 
 

@@ -8,12 +8,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import org.unhack.chemistryeasy.R;
@@ -30,10 +27,7 @@ public class ElementPopUp {
     private ChemElement element;
     private Context context;
     private View parentView;
-    private TextView symbol,number,mass,native_name,second_name;
-    private CardView big_view_layout;
-    private RelativeLayout left_element;
-
+    PopupWindow popupWindow;
     public ElementPopUp(ChemElement element, Context context, View parentView){
         this.element = element;
         this.context = context;
@@ -41,9 +35,11 @@ public class ElementPopUp {
     }
 
     public void show(){
-
+        CardView big_view_layout;
+        RelativeLayout left_element;
+        TextView symbol,number,mass,native_name,second_name;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.big_view_element, null);
+        View popupView = inflater.inflate(R.layout.element_popup, null);
         symbol = (TextView) popupView.findViewById(R.id.big_symbol);
         number = (TextView) popupView.findViewById(R.id.big_number);
         big_view_layout = (CardView) popupView.findViewById(R.id.big_view);
@@ -51,7 +47,6 @@ public class ElementPopUp {
         native_name = (TextView) popupView.findViewById(R.id.big_native_name);
         second_name = (TextView) popupView.findViewById(R.id.second_name);
         left_element = (RelativeLayout) popupView.findViewById(R.id.left_element);
-
         symbol.setText(element.getElementSymbol());
         number.setText(String.valueOf(element.getElementNumber()));
         mass.setText(String.valueOf(element.getAtomicWeight()));
@@ -82,8 +77,9 @@ public class ElementPopUp {
         int x = (int) parentView.getX();
         int y = (int) parentView.getY();
         Log.d("Coords", "X: " + String.valueOf(x) + "   Y: " + String.valueOf(y));
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-        if(element.getElementNumber() >= 58 && element.getElementNumber() <= 71 || element.getElementNumber() >= 90 && element.getElementNumber() <= 103)
+        popupWindow = new PopupWindow(popupView, width, height, focusable);
+        popupWindow.setAnimationStyle(R.style.PopupWindowAnimation);
+        if(element.isLantanoid())
         {
             Log.d("Coords2", "X: " + String.valueOf(x) + "   Y: " + String.valueOf(y));
             int[] location = new int[2];
@@ -91,11 +87,10 @@ public class ElementPopUp {
             x = location[0];
             y = location[1];
             popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x,y - element.getHeight() * 3);
-            popupView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.table_element_anim));
+
 
         }else {
-        popupView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.table_element_anim));
-        popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x, y);}
+        popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x, y - element.getHeight() * 2);}
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

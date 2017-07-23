@@ -38,6 +38,7 @@ public class BigViewController extends CardView {
         left_element = (RelativeLayout) findViewById(R.id.left_element);
         container = new ChemElementContainer(getContext());
         container.initFromDb(getContext());
+        this.setBackgroundColor(Color.alpha(1));
         start_page();
     }
     private void start_page()
@@ -75,6 +76,7 @@ public class BigViewController extends CardView {
         // second name
 
     }
+
     public BigViewController get(){return this;}
 
 }
