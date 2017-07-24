@@ -21,12 +21,6 @@
             android:id="@+id/big_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/big_number"
-            android:layout_toStartOf="@+id/big_number"
-            android:layout_weight="1"
             android:text="Bh"
             android:textColor="#000"
             android:textSize="@dimen/_23sdp"
@@ -36,37 +30,37 @@
             android:id="@+id/big_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_weight="1"
             android:text="1"
             android:textColor="#000"
             android:textSize="@dimen/_15sdp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/big_mass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/big_symbol"
             android:text="[265]"
             android:textColor="#000"
             android:textSize="@dimen/_8sdp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_below="@+id/big_symbol"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/big_native_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/big_mass"
             android:text="Hydrogen"
             android:textColor="#000"
             android:textSize="@dimen/_8sdp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_below="@+id/big_mass"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/big_second_name"

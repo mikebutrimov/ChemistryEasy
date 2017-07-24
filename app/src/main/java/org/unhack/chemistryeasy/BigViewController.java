@@ -34,7 +34,7 @@ public class BigViewController extends CardView {
         big_view_layout = (CardView) findViewById(R.id.big_view);
         mass = (TextView) findViewById(R.id.big_mass);
         native_name = (TextView) findViewById(R.id.big_native_name);
-        second_name = (TextView) findViewById(R.id.second_name);
+        second_name = (TextView) findViewById(R.id.big_second_name);
         left_element = (RelativeLayout) findViewById(R.id.left_element);
         container = new ChemElementContainer(getContext());
         container.initFromDb(getContext());

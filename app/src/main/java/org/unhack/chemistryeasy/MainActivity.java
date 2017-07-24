@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ChemElement s = (ChemElement) el.get(r[i]);
             //s.setBackgroundColor(Color.RED);
         }
-
+        temp = (SeekBar) findViewById(R.id.temp);
 
 
     }

@@ -1,10 +1,7 @@
 package org.unhack.chemistryeasy.elements;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.View;
-import org.unhack.chemistryeasy.BigViewController;
+
 import org.unhack.chemistryeasy.db.DataBaseHelper;
 import java.util.ArrayList;
 import java.util.HashMap;

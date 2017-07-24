@@ -28,69 +28,45 @@ public class ElementPopUp {
     private Context context;
     private View parentView;
     PopupWindow popupWindow;
+    RelativeLayout element_lay;
+
     public ElementPopUp(ChemElement element, Context context, View parentView){
         this.element = element;
         this.context = context;
         this.parentView = parentView;
     }
-
     public void show(){
-        CardView big_view_layout;
-        RelativeLayout left_element;
-        TextView symbol,number,mass,native_name,second_name;
+        /** Object */
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.element_popup, null);
-        symbol = (TextView) popupView.findViewById(R.id.big_symbol);
-        number = (TextView) popupView.findViewById(R.id.big_number);
-        big_view_layout = (CardView) popupView.findViewById(R.id.big_view);
-        mass = (TextView) popupView.findViewById(R.id.big_mass);
-        native_name = (TextView) popupView.findViewById(R.id.big_native_name);
-        second_name = (TextView) popupView.findViewById(R.id.second_name);
-        left_element = (RelativeLayout) popupView.findViewById(R.id.left_element);
+        CardView pop_up_card = (CardView) popupView.findViewById(R.id.pop_up_card);
+        element_lay = (RelativeLayout) popupView.findViewById(R.id.element);
+        /** Text */
+        TextView symbol = (TextView) popupView.findViewById(R.id.pop_symbol);
+        TextView number = (TextView) popupView.findViewById(R.id.pop_number);
+        TextView mass = (TextView) popupView.findViewById(R.id.pop_mass);
+        TextView native_name = (TextView) popupView.findViewById(R.id.pop_native_name);
+        TextView second_name = (TextView) popupView.findViewById(R.id.pop_second_name);
+
         symbol.setText(element.getElementSymbol());
         number.setText(String.valueOf(element.getElementNumber()));
         mass.setText(String.valueOf(element.getAtomicWeight()));
         native_name.setText(element.getElementNativeName());
-        switch (element.getBlockName())
-        {
-            case "s":
-                left_element.setBackgroundColor(Color.parseColor("#E87891"));
-                break;
-            case "p":
-                left_element.setBackgroundColor(Color.parseColor("#F5DA67"));
-                break;
-            case "d":
-                left_element.setBackgroundColor(Color.parseColor("#4EBDD1"));
-                break;
-            case "f":
-                left_element.setBackgroundColor(Color.parseColor("#ABD3AE"));
-                break;
-            default:
-                left_element.setBackgroundColor(Color.parseColor("#6b6b6b"));
-                return;
-        }
+        this.colorise(element.getBlockName());
         if(element.isRadioactive()) {//show logo of radioactive
+
         }
         boolean focusable = true;
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int x = (int) parentView.getX();
-        int y = (int) parentView.getY();
+        int[] location = new int[2];
+        element.getLocationOnScreen(location);
+        int x = location[0];
+        int y = location[1];
         Log.d("Coords", "X: " + String.valueOf(x) + "   Y: " + String.valueOf(y));
         popupWindow = new PopupWindow(popupView, width, height, focusable);
         popupWindow.setAnimationStyle(R.style.PopupWindowAnimation);
-        if(element.isLantanoid())
-        {
-            Log.d("Coords2", "X: " + String.valueOf(x) + "   Y: " + String.valueOf(y));
-            int[] location = new int[2];
-            element.getLocationOnScreen(location);
-            x = location[0];
-            y = location[1];
-            popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x,y - element.getHeight() * 3);
-
-
-        }else {
-        popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x, y - element.getHeight() * 2);}
+        popupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, x, y - element.getHeight() * 3);
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -98,5 +74,26 @@ public class ElementPopUp {
                 return true;
             }
         });
+    }
+
+    private void colorise(String block_name) // Colorise PopUp to color of element
+    {
+        switch (block_name){
+            case "s":
+                element_lay.setBackgroundColor(Color.parseColor("#E87891"));
+                break;
+            case "p":
+                element_lay.setBackgroundColor(Color.parseColor("#F5DA67"));
+                break;
+            case "d":
+                element_lay.setBackgroundColor(Color.parseColor("#4EBDD1"));
+                break;
+            case "f":
+                element_lay.setBackgroundColor(Color.parseColor("#ABD3AE"));
+                break;
+            default:
+                element_lay.setBackgroundColor(Color.parseColor("#6b6b6b"));
+                return;
+        }
     }
 }
