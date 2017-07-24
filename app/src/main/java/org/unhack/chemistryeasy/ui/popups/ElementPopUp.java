@@ -1,4 +1,4 @@
-package org.unhack.chemistryeasy.ui.popup;
+package org.unhack.chemistryeasy.ui.popups;
 
 import android.content.Context;
 import android.graphics.Color;

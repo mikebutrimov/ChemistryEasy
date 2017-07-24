@@ -1,40 +1,42 @@
 package org.unhack.chemistryeasy;
 
-import android.graphics.Color;
-import android.os.SystemClock;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridLayout;
-import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Space;
-import android.widget.TableRow;
-import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.unhack.chemistryeasy.db.DataBaseHelper;
 import org.unhack.chemistryeasy.elements.ChemElement;
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
-import org.unhack.chemistryeasy.ui.popup.ElementPopUp;
+import org.unhack.chemistryeasy.events.TemperatureSlideEvent;
+import org.unhack.chemistryeasy.ui.listeners.TempSeekBarListener;
+import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener{
     BigViewController big_view;
     ChemElementContainer allElementsContainer;
     SeekBar temp;
+
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +97,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //s.setBackgroundColor(Color.RED);
         }
         temp = (SeekBar) findViewById(R.id.temp);
-
-
+        temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(TemperatureSlideEvent event) {
+        allElementsContainer.getStateInTemp(event.temperature);
+    }
+
+
+
+
+
+
     @Override
     public void onClick(View v) {
         allElementsContainer.getStateInTemp(temp.getProgress());
@@ -114,5 +126,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int num = el.getElementNumber();
         big_view.setElementToView(num);
         return true;
+    }
+
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 }
