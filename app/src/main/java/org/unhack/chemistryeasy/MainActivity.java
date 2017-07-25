@@ -1,12 +1,14 @@
 package org.unhack.chemistryeasy;
 
 import android.graphics.Point;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.SeekBar;
 import android.widget.Space;
@@ -27,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     BigViewController big_view;
     ChemElementContainer allElementsContainer;
     SeekBar temp;
-    int width;
-    int height;
+    int width,height,x_size,y_size;
+
     private static final int X_CROP  = 18;
     private static final int Y_CROP  = 12;
     private static final int BV_X_SIZE = 10;
@@ -58,7 +60,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         display.getSize(size);
         width = size.x;
         height = size.y;
-
+        x_size = (int) Math.floor((double)width / X_CROP);
+        y_size = (int) Math.floor((double)height / Y_CROP);
+        //calc of X margin
+        int x_margin = (width - x_size*18) /2;
+        View mView = findViewById(android.R.id.content);
+        mView.setPadding(x_margin,x_margin,x_margin,x_margin);
 
         DataBaseHelper db = new DataBaseHelper(getApplicationContext());
         if (db.isValid) {
@@ -67,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else {
             Log.d("DB", "problem, db was not inited well");
         }
+
+
+
+
         Ui_init();
     }
 
@@ -81,9 +92,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         space2.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,0), GridLayout.spec(12,5)));
         GridLayout table = (GridLayout) findViewById(R.id.table_layout);
         GridLayout lantan = (GridLayout) findViewById(R.id.lantan);
-
-        int x_size = (int) Math.floor((double)width / X_CROP);
-        int y_size = (int) Math.floor((double)height / Y_CROP);
 
         GridLayout.LayoutParams bigViewParams = new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10));
         bigViewParams.width = x_size*BV_X_SIZE;
