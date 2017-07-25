@@ -1,15 +1,18 @@
 package org.unhack.chemistryeasy;
 
 import android.graphics.Point;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.ActionBar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
+
+import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Space;
 
@@ -31,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SeekBar temp;
     int width,height,x_size,y_size;
 
+    private String[] mMenuOptions;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+
     private static final int X_CROP  = 18;
     private static final int Y_CROP  = 12;
     private static final int BV_X_SIZE = 10;
@@ -42,10 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         EventBus.getDefault().register(this);
     }
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +78,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("DB", "problem, db was not inited well");
         }
 
-
+        /*
+        Prepare burger menu
+         */
+        mMenuOptions = getResources().getStringArray(R.array.menu_array);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mMenuOptions));
 
 
         Ui_init();
@@ -101,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for(int i = 0; i < allElementsContainer.getSize(); i++) {
             ChemElement buf = allElementsContainer.getElementByNumber(i + 1);
             buf.setSize(x_size, y_size);
+
 
             switch (buf.getElementNumber()){
                 case 2:
@@ -130,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //s.setBackgroundColor(Color.RED);
         }
         temp = (SeekBar) findViewById(R.id.temp);
+        temp.setProgress(273);
         temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
     }
 
@@ -141,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        allElementsContainer.getStateInTemp(temp.getProgress());
         ChemElement el = (ChemElement) v;
         ElementPopUp popUp = new ElementPopUp((ChemElement) v,getApplicationContext(),v);
         popUp.show();
@@ -162,4 +173,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
+
 }

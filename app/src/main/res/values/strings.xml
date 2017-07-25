@@ -11,4 +11,16 @@
     <string name="third_screen">Третий экран</string>
     <string name="open_menu">Open</string>
     <string name="close_menu">Close</string>
+
+    <string-array name="menu_array">
+        <item>Main</item>
+        <item>Not main</item>
+        <item>Not last</item>
+        <item>Last</item>
+    </string-array>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>
