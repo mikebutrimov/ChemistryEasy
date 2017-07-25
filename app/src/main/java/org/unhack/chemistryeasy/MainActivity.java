@@ -1,8 +1,11 @@
 package org.unhack.chemistryeasy;
 
+import android.graphics.Point;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.SeekBar;
@@ -24,8 +27,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     BigViewController big_view;
     ChemElementContainer allElementsContainer;
     SeekBar temp;
-
-
+    int width;
+    int height;
+    private static final int X_CROP  = 18;
+    private static final int Y_CROP  = 12;
+    private static final int BV_X_SIZE = 10;
+    private static final int BV_Y_SIZE = 3;
 
 
     @Override
@@ -42,6 +49,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
+        Get screen size
+         */
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        width = size.x;
+        height = size.y;
+
+
         DataBaseHelper db = new DataBaseHelper(getApplicationContext());
         if (db.isValid) {
             db.openDataBase();
@@ -56,10 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void Ui_init(){
         allElementsContainer = new ChemElementContainer(getApplicationContext());
         allElementsContainer.initFromDb(getApplicationContext());
-        //allElementsContainer.getStateInTemp(51);
         big_view = new BigViewController(getApplicationContext());
-        //big_view.setElementToView(10);
-        big_view.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10)));
 
         Space space = new Space(getApplicationContext());
         Space space2 = new Space(getApplicationContext());
@@ -67,8 +82,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GridLayout table = (GridLayout) findViewById(R.id.table_layout);
         GridLayout lantan = (GridLayout) findViewById(R.id.lantan);
 
+        int x_size = (int) Math.floor((double)width / X_CROP);
+        int y_size = (int) Math.floor((double)height / Y_CROP);
+
+        GridLayout.LayoutParams bigViewParams = new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10));
+        bigViewParams.width = x_size*BV_X_SIZE;
+        bigViewParams.height = y_size*BV_Y_SIZE;
+        big_view.setLayoutParams(bigViewParams);
+
         for(int i = 0; i < allElementsContainer.getSize(); i++) {
             ChemElement buf = allElementsContainer.getElementByNumber(i + 1);
+            buf.setSize(x_size, y_size);
+
             switch (buf.getElementNumber()){
                 case 2:
                     table.addView(space);
@@ -106,10 +131,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
-
-
-
     @Override
     public void onClick(View v) {
         allElementsContainer.getStateInTemp(temp.getProgress());
@@ -121,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onLongClick(View v) {
-
         ChemElement el = (ChemElement) v;
         int num = el.getElementNumber();
         big_view.setElementToView(num);
