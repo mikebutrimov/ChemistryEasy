@@ -1,5 +1,6 @@
 package org.unhack.chemistryeasy;
 
+import android.graphics.Color;
 import android.graphics.Point;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,11 +11,18 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Space;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,8 +50,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int Y_CROP  = 12;
     private static final int BV_X_SIZE = 10;
     private static final int BV_Y_SIZE = 3;
+    /** Elements */
+    private static final int ELEMENTS_MARGIN_TOP = 1;
+    private static final int ELEMENTS_MARGIN_BUTTOM = 1;
+    private static final int ELEMENTS_MARGIN_LEFT = 1;
+    private static final int ELEMENTS_MARGIN_RIGHT = 1;
 
 
+    TextView temp_tx;
     @Override
     public void onStart() {
         super.onStart();
@@ -67,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         y_size = (int) Math.floor((double)height / Y_CROP);
         //calc of X margin
         int x_margin = (width - x_size*18) /2;
-        View mView = findViewById(android.R.id.content);
+        final View mView = findViewById(android.R.id.content);
         mView.setPadding(x_margin,x_margin,x_margin,x_margin);
 
         DataBaseHelper db = new DataBaseHelper(getApplicationContext());
@@ -77,17 +91,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else {
             Log.d("DB", "problem, db was not inited well");
         }
-
         /*
         Prepare burger menu
          */
         mMenuOptions = getResources().getStringArray(R.array.menu_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mMenuOptions));
-
-
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mMenuOptions));
+        mDrawerLayout.setScrimColor(Color.TRANSPARENT);
         Ui_init();
     }
 
@@ -100,9 +111,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Space space = new Space(getApplicationContext());
         Space space2 = new Space(getApplicationContext());
         space2.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,0), GridLayout.spec(12,5)));
-        GridLayout table = (GridLayout) findViewById(R.id.table_layout);
+        final GridLayout table = (GridLayout) findViewById(R.id.table_layout);
         GridLayout lantan = (GridLayout) findViewById(R.id.lantan);
-
         GridLayout.LayoutParams bigViewParams = new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10));
         bigViewParams.width = x_size*BV_X_SIZE;
         bigViewParams.height = y_size*BV_Y_SIZE;
@@ -110,9 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for(int i = 0; i < allElementsContainer.getSize(); i++) {
             ChemElement buf = allElementsContainer.getElementByNumber(i + 1);
-            buf.setSize(x_size, y_size);
-
-
+            buf.setSize(x_size - (ELEMENTS_MARGIN_LEFT + ELEMENTS_MARGIN_RIGHT), y_size - (ELEMENTS_MARGIN_TOP + ELEMENTS_MARGIN_BUTTOM));
             switch (buf.getElementNumber()){
                 case 2:
                     table.addView(space);
@@ -120,11 +128,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     table.addView(space2);
                     break;
             }
-
-            if(buf.getElementNumber() >= 58 && buf.getElementNumber() <= 71)
+            if(buf.isLantanoid())
             {
-                lantan.addView(buf);
-            } else if(buf.getElementNumber() >= 90 && buf.getElementNumber() <= 103){
                 lantan.addView(buf);
             }
             else {
@@ -132,6 +137,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             buf.setOnClickListener(this);
             buf.setOnLongClickListener(this);
+            GridLayout.LayoutParams params = (GridLayout.LayoutParams) buf.getLayoutParams();
+            params.setMargins(ELEMENTS_MARGIN_LEFT,ELEMENTS_MARGIN_TOP,ELEMENTS_MARGIN_RIGHT,ELEMENTS_MARGIN_BUTTOM);
+            buf.setLayoutParams(params);
         }
         /** Test Filter */
         int r[] = {2,3,5,6,7,8,9,11,12};
@@ -143,11 +151,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         temp = (SeekBar) findViewById(R.id.temp);
         temp.setProgress(273);
         temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
+        temp_tx = (TextView) findViewById(R.id.temp_tx);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(TemperatureSlideEvent event) {
         allElementsContainer.getStateInTemp(event.temperature);
+        temp_tx.setText(String.valueOf(event.temperature));
     }
 
 
@@ -173,5 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
+
+
 
 }

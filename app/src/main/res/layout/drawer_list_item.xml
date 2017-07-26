@@ -5,4 +5,5 @@
     android:padding="@dimen/_4sdp"
     android:background="@color/cardview_dark_background"
     android:textColor="@android:color/white"
+    android:alpha="0.7"
     android:textSize="24sp" />
