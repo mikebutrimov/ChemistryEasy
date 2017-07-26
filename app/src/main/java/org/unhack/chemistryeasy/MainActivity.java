@@ -2,6 +2,7 @@ package org.unhack.chemistryeasy;
 
 import android.graphics.Color;
 import android.graphics.Point;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,8 @@ import org.unhack.chemistryeasy.db.DataBaseHelper;
 import org.unhack.chemistryeasy.elements.ChemElement;
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
 import org.unhack.chemistryeasy.events.TemperatureSlideEvent;
+import org.unhack.chemistryeasy.ui.adaptors.MixedPagerAdapter;
+import org.unhack.chemistryeasy.ui.fragments.OrdinaryTable;
 import org.unhack.chemistryeasy.ui.listeners.TempSeekBarListener;
 import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 
@@ -41,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ChemElementContainer allElementsContainer;
     SeekBar temp;
     int width,height,x_size,y_size;
+    public static MixedPagerAdapter pagerAdapter;
+    private ViewPager viewPager;
+
+
 
     private String[] mMenuOptions;
     private DrawerLayout mDrawerLayout;
@@ -58,11 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     TextView temp_tx;
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /*
         Get screen size
          */
-        Display display = getWindowManager().getDefaultDisplay();
+        /*Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         width = size.x;
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else {
             Log.d("DB", "problem, db was not inited well");
         }
+        */
         /*
         Prepare burger menu
          */
@@ -99,8 +103,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mMenuOptions));
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
-        Ui_init();
+
+        allElementsContainer = new ChemElementContainer(getApplicationContext());
+        allElementsContainer.initFromDb(getApplicationContext());
+
+        //OrdinaryTable mOrdinaryTableFragment = new OrdinaryTable();
+        //mOrdinaryTableFragment.setContainer(allElementsContainer);
+
+
+
+        //Ui_init();
+
+        initPaging();
     }
+
+
+    private void initPaging() {
+        OrdinaryTable mOrdinaryTableFragment = new OrdinaryTable();
+        mOrdinaryTableFragment.setContainer(allElementsContainer);
+        pagerAdapter = new MixedPagerAdapter(getSupportFragmentManager());
+        pagerAdapter.addFragment(mOrdinaryTableFragment);
+        viewPager = (ViewPager) findViewById(R.id.container);
+        if (viewPager != null) {
+            viewPager.setAdapter(pagerAdapter);
+        }
+    }
+
+
+
 
     /** --------------- UI ----------- */
     public void Ui_init(){
@@ -152,12 +182,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         temp.setProgress(273);
         temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
         temp_tx = (TextView) findViewById(R.id.temp_tx);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(TemperatureSlideEvent event) {
-        allElementsContainer.getStateInTemp(event.temperature);
-        temp_tx.setText(String.valueOf(event.temperature));
     }
 
 
