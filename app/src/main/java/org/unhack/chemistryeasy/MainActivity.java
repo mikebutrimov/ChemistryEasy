@@ -68,37 +68,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int ELEMENTS_MARGIN_RIGHT = 1;
 
 
-    TextView temp_tx;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*
-        Get screen size
-         */
-        /*Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        width = size.x;
-        height = size.y;
-        x_size = (int) Math.floor((double)width / X_CROP);
-        y_size = (int) Math.floor((double)height / Y_CROP);
-        //calc of X margin
-        int x_margin = (width - x_size*18) /2;
-        final View mView = findViewById(android.R.id.content);
-        mView.setPadding(x_margin,x_margin,x_margin,x_margin);
-
-        DataBaseHelper db = new DataBaseHelper(getApplicationContext());
-        if (db.isValid) {
-            db.openDataBase();
-        }
-        else {
-            Log.d("DB", "problem, db was not inited well");
-        }
-        */
         /*
         Prepare burger menu
          */
@@ -120,13 +94,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         allElementsContainer = new ChemElementContainer(getApplicationContext());
         allElementsContainer.initFromDb(getApplicationContext());
-
-        //OrdinaryTable mOrdinaryTableFragment = new OrdinaryTable();
-        //mOrdinaryTableFragment.setContainer(allElementsContainer);
-
-
-
-        //Ui_init();
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -166,61 +133,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-
-
-    /** --------------- UI ----------- */
-    /*public void Ui_init(){
-        allElementsContainer = new ChemElementContainer(getApplicationContext());
-        allElementsContainer.initFromDb(getApplicationContext());
-        big_view = new BigViewController(getApplicationContext());
-
-        Space space = new Space(getApplicationContext());
-        Space space2 = new Space(getApplicationContext());
-        space2.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,0), GridLayout.spec(12,5)));
-        final GridLayout table = (GridLayout) findViewById(R.id.table_layout);
-        GridLayout lantan = (GridLayout) findViewById(R.id.lantan);
-        GridLayout.LayoutParams bigViewParams = new GridLayout.LayoutParams(GridLayout.spec(0,3), GridLayout.spec(2,10));
-        bigViewParams.width = x_size*BV_X_SIZE;
-        bigViewParams.height = y_size*BV_Y_SIZE;
-        big_view.setLayoutParams(bigViewParams);
-
-        for(int i = 0; i < allElementsContainer.getSize(); i++) {
-            ChemElement buf = allElementsContainer.getElementByNumber(i + 1);
-            buf.setSize(x_size - (ELEMENTS_MARGIN_LEFT + ELEMENTS_MARGIN_RIGHT), y_size - (ELEMENTS_MARGIN_TOP + ELEMENTS_MARGIN_BUTTOM));
-            switch (buf.getElementNumber()){
-                case 2:
-                    table.addView(space);
-                    table.addView(big_view);
-                    table.addView(space2);
-                    break;
-            }
-            if(buf.isLantanoid())
-            {
-                lantan.addView(buf);
-            }
-            else {
-                table.addView(buf);
-            }
-            buf.setOnClickListener(this);
-            buf.setOnLongClickListener(this);
-            GridLayout.LayoutParams params = (GridLayout.LayoutParams) buf.getLayoutParams();
-            params.setMargins(ELEMENTS_MARGIN_LEFT,ELEMENTS_MARGIN_TOP,ELEMENTS_MARGIN_RIGHT,ELEMENTS_MARGIN_BUTTOM);
-            buf.setLayoutParams(params);
-        }
-        /** Test Filter */
-    /*
-        int r[] = {2,3,5,6,7,8,9,11,12};
-        HashMap el = allElementsContainer.getFilteredElements(r);
-        for(int i = 0; i < el.size(); i++) {
-            ChemElement s = (ChemElement) el.get(r[i]);
-            //s.setBackgroundColor(Color.RED);
-        }
-        temp = (SeekBar) findViewById(R.id.temp);
-        temp.setProgress(273);
-        temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
-        temp_tx = (TextView) findViewById(R.id.temp_tx);
-    }*/
 
 
     @Override

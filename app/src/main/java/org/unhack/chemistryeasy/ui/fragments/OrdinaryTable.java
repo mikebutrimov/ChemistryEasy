@@ -59,8 +59,6 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ordinary_table_layout, container, false);
         Display display = getActivity().getWindowManager().getDefaultDisplay();
-
-        //Display display = view.getDisplay();
         Point size = new Point();
         display.getSize(size);
         width = size.x;
@@ -119,9 +117,11 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
             ChemElement s = (ChemElement) el.get(r[i]);
             //s.setBackgroundColor(Color.RED);
         }
+
+
         temp = (SeekBar) v.findViewById(R.id.temp);
-        temp.setProgress(273);
         temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
+        temp.setProgress(273);
         temp_tx = (TextView) v.findViewById(R.id.temp_tx);
     }
 

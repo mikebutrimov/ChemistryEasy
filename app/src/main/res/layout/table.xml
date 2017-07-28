@@ -36,16 +36,33 @@
         </GridLayout>
     </TableRow>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/temp_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="273"
+            android:gravity="bottom|center_vertical|center_horizontal"
+            />
 
         <SeekBar
             android:id="@+id/temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+
             android:max="6000" />
-    </TableRow>
+
+
+    </LinearLayout>
 
 
 </TableLayout>
