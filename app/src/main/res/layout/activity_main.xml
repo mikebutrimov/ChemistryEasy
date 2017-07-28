@@ -50,7 +50,7 @@
             android:layout_marginTop="@dimen/_205sdp"
             android:clickable="true"
             app:fabSize="mini"
-            app:srcCompat="?attr/actionModeCloseDrawable" />
+            app:srcCompat="@drawable/hamberger" />" />
     </android.support.design.widget.CoordinatorLayout>
 
 

@@ -133,6 +133,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
+                fab.animate().translationXBy(-500).withLayer();
+                fab.animate().rotationBy(-500).withLayer();
             }
         });
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -143,8 +145,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDrawerOpened(View drawerView) {}
             @Override
-            public void onDrawerClosed(View drawerView) {}
-            @Override
+            public void onDrawerClosed(View drawerView) {
+                fab.animate().rotationBy(500).withLayer();
+                fab.animate().translationXBy(+500).withLayer();}
+        @Override
             public void onDrawerStateChanged(int newState) {}
         });
         initPaging();
