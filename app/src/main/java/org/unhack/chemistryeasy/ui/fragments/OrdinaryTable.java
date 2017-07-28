@@ -150,6 +150,12 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         EventBus.getDefault().register(this);
     }
 
+    @Override
+    public void  onStop(){
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(TemperatureSlideEvent event) {
         this.container.getStateInTemp(event.temperature);
