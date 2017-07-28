@@ -2,6 +2,7 @@ package org.unhack.chemistryeasy;
 
 import android.graphics.Color;
 import android.graphics.Point;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,10 +11,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
@@ -24,6 +27,7 @@ import android.widget.SeekBar;
 import android.widget.Space;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -103,7 +107,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mMenuOptions));
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
-
+        mDrawerList.bringToFront();
+        mDrawerLayout.requestLayout();
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            Toast toast;
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(toast != null) {toast.cancel();}
+                toast = Toast.makeText(getApplicationContext(),"You click item with position: " + String.valueOf(position + 1), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
         allElementsContainer = new ChemElementContainer(getApplicationContext());
         allElementsContainer.initFromDb(getApplicationContext());
 
@@ -114,6 +128,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Ui_init();
 
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                    fab.setAlpha(1 - slideOffset);
+            }
+            @Override
+            public void onDrawerOpened(View drawerView) {}
+            @Override
+            public void onDrawerClosed(View drawerView) {}
+            @Override
+            public void onDrawerStateChanged(int newState) {}
+        });
         initPaging();
     }
 
@@ -133,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     /** --------------- UI ----------- */
-    public void Ui_init(){
+    /*public void Ui_init(){
         allElementsContainer = new ChemElementContainer(getApplicationContext());
         allElementsContainer.initFromDb(getApplicationContext());
         big_view = new BigViewController(getApplicationContext());
@@ -172,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             buf.setLayoutParams(params);
         }
         /** Test Filter */
+    /*
         int r[] = {2,3,5,6,7,8,9,11,12};
         HashMap el = allElementsContainer.getFilteredElements(r);
         for(int i = 0; i < el.size(); i++) {
@@ -182,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         temp.setProgress(273);
         temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
         temp_tx = (TextView) findViewById(R.id.temp_tx);
-    }
+    }*/
 
 
     @Override

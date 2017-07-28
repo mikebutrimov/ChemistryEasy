@@ -6,9 +6,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
 import org.unhack.chemistryeasy.ui.fragments.PeriodicTableFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +38,7 @@ public class MixedPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public CharSequence  getPageTitle(int id){
+    public CharSequence getPageTitle(int id){
         return String.valueOf(this.mFragments.get(id).getTabId());
     }
 

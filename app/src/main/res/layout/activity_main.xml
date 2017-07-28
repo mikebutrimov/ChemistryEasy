@@ -37,6 +37,21 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp" />
 
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_205sdp"
+            android:clickable="true"
+            app:fabSize="mini"
+            app:srcCompat="?attr/actionModeCloseDrawable" />
+    </android.support.design.widget.CoordinatorLayout>
 
 
 </android.support.v4.widget.DrawerLayout>
