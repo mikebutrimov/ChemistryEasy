@@ -66,8 +66,7 @@ public interface iChemElement {
     //endregion
 
     /**
-     * This method is used to invo
-     * ke mutation on element
+     * This method is used to invoke mutation on element
      *
      * @return True if mutation was a success, otherwise false
      *

@@ -58,20 +58,19 @@ public class ElementPopUp {
         View popupView = inflater.inflate(R.layout.element_popup, null);
         CardView pop_up_card = (CardView) popupView.findViewById(R.id.pop_up_card);
         element_lay = (RelativeLayout) popupView.findViewById(R.id.element);
+
         /** Text */
         TextView symbol = (TextView) popupView.findViewById(R.id.pop_symbol);
         TextView number = (TextView) popupView.findViewById(R.id.pop_number);
         TextView mass = (TextView) popupView.findViewById(R.id.pop_mass);
         TextView native_name = (TextView) popupView.findViewById(R.id.pop_native_name);
         TextView second_name = (TextView) popupView.findViewById(R.id.pop_second_name);
-
         symbol.setText(element.getElementSymbol());
         number.setText(String.valueOf(element.getElementNumber()));
         mass.setText(String.valueOf(element.getAtomicWeight()));
         native_name.setText(element.getElementNativeName());
         this.colorise(element.getBlockName());
         if(element.isRadioactive()) {//show logo of radioactive
-
         }
         boolean focusable = true;
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
