@@ -55,17 +55,19 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
     SeekBar temp;
     int width,height,x_size,y_size;
     TextView temp_tx;
-    private static final int NORMAL_TEMPERATURE_K = 273;
+
 
     private static final int X_CROP  = 18;
     private static final int Y_CROP  = 12;
     private static final int BV_X_SIZE = 10;
     private static final int BV_Y_SIZE = 3;
-    /** Element's margins */
+    /** Elements */
     private static final int ELEMENTS_MARGIN_TOP = 1;
     private static final int ELEMENTS_MARGIN_BUTTOM = 1;
     private static final int ELEMENTS_MARGIN_LEFT = 1;
     private static final int ELEMENTS_MARGIN_RIGHT = 1;
+
+
 
 
     @Override
@@ -83,11 +85,13 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         int x_margin = (width - x_size*18) /2;
         view.setPadding(x_margin,x_margin,x_margin,x_margin);
         Ui_init(view);
+
         return view;
     }
 
     public void Ui_init(View v){
         big_view = new BigViewController(v.getContext());
+
         Space space = new Space(v.getContext());
         Space space2 = new Space(v.getContext());
         space2.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,0), GridLayout.spec(12,5)));
@@ -121,10 +125,9 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
             params.setMargins(ELEMENTS_MARGIN_LEFT,ELEMENTS_MARGIN_TOP,ELEMENTS_MARGIN_RIGHT,ELEMENTS_MARGIN_BUTTOM);
             buf.setLayoutParams(params);
         }
-
         temp = (SeekBar) v.findViewById(R.id.temp);
         temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
-        temp.setProgress(NORMAL_TEMPERATURE_K);
+        temp.setProgress(273);
         temp_tx = (TextView) v.findViewById(R.id.temp_tx);
     }
 
@@ -135,6 +138,7 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         ChemElement el = (ChemElement) v;
         ElementPopUp popUp = new ElementPopUp((ChemElement) v,getContext(),v);
         popUp.show();
+        Log.d("ELEMENT", ((ChemElement) v).getElementNativeName());
     }
 
     @Override
@@ -145,15 +149,6 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         return true;
     }
 
-    /*
-    EventBus (un)registering / subscribing part
-     */
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(TemperatureSlideEvent event) {
-        this.container.getStateInTemp(event.temperature);
-        temp_tx.setText(String.valueOf(event.temperature));
-    }
 
     @Override
     public void onStart() {
@@ -166,5 +161,12 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(TemperatureSlideEvent event) {
+        this.container.getStateInTemp(event.temperature);
+        temp_tx.setText(String.valueOf(event.temperature));
+    }
+
 
 }

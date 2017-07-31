@@ -65,28 +65,10 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener{
     BigViewController big_view;
     ChemElementContainer allElementsContainer;
-    SeekBar temp;
-    int width,height,x_size,y_size;
     public static MixedPagerAdapter pagerAdapter;
     private ViewPager viewPager;
-
-
-
-    private String[] mMenuOptions;
     private DrawerLayout mDrawerLayout;
     private ExpandableListView mDrawerList;
-
-    private static final int X_CROP  = 18;
-    private static final int Y_CROP  = 12;
-    private static final int BV_X_SIZE = 10;
-    private static final int BV_Y_SIZE = 3;
-    /** Elements */
-    private static final int ELEMENTS_MARGIN_TOP = 1;
-    private static final int ELEMENTS_MARGIN_BUTTOM = 1;
-    private static final int ELEMENTS_MARGIN_LEFT = 1;
-    private static final int ELEMENTS_MARGIN_RIGHT = 1;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     @Override
     public void onClick(View v) {
         ChemElement el = (ChemElement) v;
@@ -194,7 +175,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return groups;
     }
-
-
-
 }
