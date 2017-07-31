@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
@@ -52,11 +53,13 @@ import org.unhack.chemistryeasy.db.DataBaseHelper;
 import org.unhack.chemistryeasy.elements.ChemElement;
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
 import org.unhack.chemistryeasy.events.TemperatureSlideEvent;
+import org.unhack.chemistryeasy.ui.adaptors.DrawerAdapter;
 import org.unhack.chemistryeasy.ui.adaptors.MixedPagerAdapter;
 import org.unhack.chemistryeasy.ui.fragments.OrdinaryTable;
 import org.unhack.chemistryeasy.ui.listeners.TempSeekBarListener;
 import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener{
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String[] mMenuOptions;
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+    private ExpandableListView mDrawerList;
 
     private static final int X_CROP  = 18;
     private static final int Y_CROP  = 12;
@@ -89,13 +92,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*
-        Prepare burger menu
-         */
-        mMenuOptions = getResources().getStringArray(R.array.menu_array);
+        String[] groupsTitles = getResources().getStringArray(R.array.group_names);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mMenuOptions));
+        mDrawerList = (ExpandableListView) findViewById(R.id.left_drawer);
+        mDrawerList.setAdapter(new DrawerAdapter(getApplicationContext(), initDrawerOptions(), groupsTitles));
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
         mDrawerList.bringToFront();
         mDrawerLayout.requestLayout();
@@ -172,6 +172,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
+    }
+
+    private ArrayList<ArrayList<String>> initDrawerOptions()
+    {
+        ArrayList<ArrayList<String>> groups = new ArrayList<ArrayList<String>>();
+        ArrayList<String> elements = new ArrayList<String>();
+        ArrayList<String> calculator = new ArrayList<String>();
+        ArrayList<String> family_elements = new ArrayList<String>();
+        ArrayList<String> agregat = new ArrayList<String>();
+
+        for (int i = 0; i < getResources().getStringArray(R.array.elements).length; i++) {elements.add(i,getResources().getStringArray(R.array.elements)[i]);} // elements
+        for (int i = 0; i < getResources().getStringArray(R.array.calculator).length; i++) {calculator.add(i,getResources().getStringArray(R.array.calculator)[i]);} // calculator
+        for (int i = 0; i < getResources().getStringArray(R.array.family).length; i++) {family_elements.add(i,getResources().getStringArray(R.array.family)[i]);} // family
+        for (int i = 0; i < getResources().getStringArray(R.array.agregat).length; i++) {agregat.add(i,getResources().getStringArray(R.array.agregat)[i]);} // agregat
+
+        groups.add(0,elements);
+        groups.add(1,calculator);
+        groups.add(2,family_elements);
+        groups.add(3,agregat);
+
+        return groups;
     }
 
 
