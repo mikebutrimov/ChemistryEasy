@@ -83,7 +83,6 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         y_size = (int) Math.floor((double)height / Y_CROP);
         //calc of X margin
         int x_margin = (width - x_size*18) /2;
-        //final View mView = view.findViewById(android.R.id.content);
         view.setPadding(x_margin,x_margin,x_margin,x_margin);
         Ui_init(view);
 
@@ -126,15 +125,6 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
             params.setMargins(ELEMENTS_MARGIN_LEFT,ELEMENTS_MARGIN_TOP,ELEMENTS_MARGIN_RIGHT,ELEMENTS_MARGIN_BUTTOM);
             buf.setLayoutParams(params);
         }
-        /** Test Filter */
-        int r[] = {2,3,5,6,7,8,9,11,12};
-        HashMap el = this.container.getFilteredElements(r);
-        for(int i = 0; i < el.size(); i++) {
-            ChemElement s = (ChemElement) el.get(r[i]);
-            //s.setBackgroundColor(Color.RED);
-        }
-
-
         temp = (SeekBar) v.findViewById(R.id.temp);
         temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
         temp.setProgress(273);
