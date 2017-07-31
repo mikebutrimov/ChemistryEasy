@@ -16,23 +16,31 @@
 
 <resources>
     <string name="app_name">ChemistryEasy</string>
-    <string-array name="views_array">
-        <item>Первый экран</item>
-        <item>Второй экран</item>
-        <item>Третий экран</item>
-    </string-array>
-    <string name="menu">Меню</string>
-    <string name="first_screen">Первый экран</string>
-    <string name="second_screen">Второй экран</string>
-    <string name="third_screen">Третий экран</string>
-    <string name="open_menu">Open</string>
-    <string name="close_menu">Close</string>
 
-    <string-array name="menu_array">
-        <item>Main</item>
-        <item>Not main</item>
-        <item>Not last</item>
-        <item>Last</item>
+    <string-array name="group_names"> <!-- Необходимо точное соответствие со списком -->
+        <item>Elements</item>
+        <item>Calculator</item>
+        <item>Family</item>
+        <item>Agregat</item>
+    </string-array>
+
+    <string-array name="elements">
+        <item>S</item>
+        <item>P</item>
+        <item>D</item>
+        <item>F</item>
+    </string-array>
+
+    <string-array name="calculator">
+        <item>Test Item</item>
+    </string-array>
+
+    <string-array name="family">
+        <item>Family Test Item</item>
+    </string-array>
+
+    <string-array name="agregat">
+        <item>Agregat Test Item</item>
     </string-array>
 
 
