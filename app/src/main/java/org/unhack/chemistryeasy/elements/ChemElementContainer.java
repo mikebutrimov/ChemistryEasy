@@ -28,11 +28,16 @@ import java.util.regex.Pattern;
  * Base class to manipulate chem elements
  */
 
+
 public class ChemElementContainer {
     private Context context;
     public ChemElementContainer(Context context)
     {
         this.context = context;
+    }
+
+    public ChemElementContainer()
+    {
     }
 
     private HashMap<Integer, ChemElement> storage = new HashMap<>();

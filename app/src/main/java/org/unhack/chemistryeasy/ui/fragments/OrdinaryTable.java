@@ -50,16 +50,16 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
     int width,height,x_size,y_size;
     TextView temp_tx;
 
-
-    private static final int X_CROP  = 18;
-    private static final int Y_CROP  = 12;
-    private static final int BV_X_SIZE = 10;
-    private static final int BV_Y_SIZE = 3;
+    static final int NORMAL_TEMPERATURE_K = 273;
+    static final int X_CROP  = 18;
+    static final int Y_CROP  = 12;
+    static final int BV_X_SIZE = 10;
+    static final int BV_Y_SIZE = 3;
     /** Elements */
-    private static final int ELEMENTS_MARGIN_TOP = 1;
-    private static final int ELEMENTS_MARGIN_BUTTOM = 1;
-    private static final int ELEMENTS_MARGIN_LEFT = 1;
-    private static final int ELEMENTS_MARGIN_RIGHT = 1;
+    static final int ELEMENTS_MARGIN_TOP = 1;
+    static final int ELEMENTS_MARGIN_BUTTOM = 1;
+    static final int ELEMENTS_MARGIN_LEFT = 1;
+    static final int ELEMENTS_MARGIN_RIGHT = 1;
 
 
 
@@ -79,13 +79,11 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         int x_margin = (width - x_size*18) /2;
         view.setPadding(x_margin,x_margin,x_margin,x_margin);
         Ui_init(view);
-
         return view;
     }
 
     public void Ui_init(View v){
         big_view = new BigViewController(v.getContext());
-
         Space space = new Space(v.getContext());
         Space space2 = new Space(v.getContext());
         space2.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(0,0), GridLayout.spec(12,5)));
@@ -98,6 +96,7 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
 
         for(int i = 0; i < this.container.getSize(); i++) {
             ChemElement buf = this.container.getElementByNumber(i + 1);
+
             buf.setSize(x_size - (ELEMENTS_MARGIN_LEFT + ELEMENTS_MARGIN_RIGHT), y_size - (ELEMENTS_MARGIN_TOP + ELEMENTS_MARGIN_BUTTOM));
             switch (buf.getElementNumber()){
                 case 2:
@@ -120,11 +119,10 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
             buf.setLayoutParams(params);
         }
         temp = (SeekBar) v.findViewById(R.id.temp);
-        temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
-        temp.setProgress(273);
         temp_tx = (TextView) v.findViewById(R.id.temp_tx);
+        temp.setVisibility(View.INVISIBLE);
+        temp_tx.setVisibility(View.INVISIBLE);
     }
-
 
 
     @Override
@@ -144,23 +142,7 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
 
-    @Override
-    public void  onStop(){
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(TemperatureSlideEvent event) {
-        this.container.getStateInTemp(event.temperature);
-        temp_tx.setText(String.valueOf(event.temperature));
-    }
 
 
 }

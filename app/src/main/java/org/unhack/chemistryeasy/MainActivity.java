@@ -16,6 +16,7 @@
 
 package org.unhack.chemistryeasy;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -28,7 +29,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,16 +37,15 @@ import org.unhack.chemistryeasy.elements.ChemElement;
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
 import org.unhack.chemistryeasy.ui.adaptors.MixedPagerAdapter;
 import org.unhack.chemistryeasy.ui.fragments.OrdinaryTable;
+import org.unhack.chemistryeasy.ui.fragments.OrdinaryTablePhysicalForm;
 import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener, NavigationView.OnNavigationItemSelectedListener{
     BigViewController big_view;
-    ChemElementContainer allElementsContainer;
     public static MixedPagerAdapter pagerAdapter;
     private ViewPager viewPager;
     private DrawerLayout mDrawerLayout;
-    private ExpandableListView mDrawerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.left_drawer);
         navigationView.setNavigationItemSelectedListener(this);
-
-        allElementsContainer = new ChemElementContainer(getApplicationContext());
-        allElementsContainer.initFromDb(getApplicationContext());
-
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,13 +86,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initPaging() {
         OrdinaryTable mOrdinaryTableFragment = new OrdinaryTable();
-        mOrdinaryTableFragment.setContainer(allElementsContainer);
+        OrdinaryTablePhysicalForm mOrdinaryTablePhysicalForm = new OrdinaryTablePhysicalForm();
+        mOrdinaryTableFragment.setContainer(ChemElementContainerFabric(getApplicationContext()));
+        mOrdinaryTablePhysicalForm.setContainer(ChemElementContainerFabric(getApplicationContext()));
         pagerAdapter = new MixedPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(mOrdinaryTableFragment);
+        pagerAdapter.addFragment(mOrdinaryTablePhysicalForm);
         viewPager = (ViewPager) findViewById(R.id.container);
         if (viewPager != null) {
             viewPager.setAdapter(pagerAdapter);
         }
+
     }
 
 
@@ -132,8 +131,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.elements) {
             // display all elements for example :)
             Toast.makeText(getApplicationContext(),"Elements", Toast.LENGTH_SHORT).show();
+            viewPager.setCurrentItem(0);
+
         } else if (id == R.id.physical_form) {
             Toast.makeText(getApplicationContext(),"Physical Form", Toast.LENGTH_SHORT).show();
+            viewPager.setCurrentItem(1);
 
         } else if (id == R.id.element_p) {
             Toast.makeText(getApplicationContext(),"P-elems", Toast.LENGTH_SHORT).show();
@@ -147,6 +149,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    ChemElementContainer ChemElementContainerFabric (Context cntx){
+        ChemElementContainer buf = new ChemElementContainer(cntx);
+        buf.initFromDb(cntx);
+        return buf;
     }
 
 
