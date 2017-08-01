@@ -18,10 +18,10 @@
     <string name="app_name">ChemistryEasy</string>
 
     <string-array name="group_names"> <!-- Необходимо точное соответствие со списком -->
-        <item>Elements</item>
-        <item>Calculator</item>
-        <item>Family</item>
-        <item>Agregat</item>
+        <item>Элементы</item>
+        <item>Калькулятор</item>
+        <item>Семейство элементов</item>
+        <item>Агрегатное состояние</item>
     </string-array>
 
     <string-array name="elements">

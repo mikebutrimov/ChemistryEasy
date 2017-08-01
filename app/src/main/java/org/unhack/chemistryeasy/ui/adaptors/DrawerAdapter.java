@@ -17,10 +17,13 @@
 package org.unhack.chemistryeasy.ui.adaptors;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import org.unhack.chemistryeasy.R;
 import java.util.ArrayList;
@@ -82,12 +85,13 @@ public class DrawerAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.drawer_list_group, null);
         }
+        RelativeLayout l =  (RelativeLayout) convertView.findViewById(R.id.list_group);
 
         if (isExpanded){
-            //Изменяем что-нибудь, если текущая Group раскрыта
+            l.setBackgroundColor(Color.RED);
         }
         else{
-            //Изменяем что-нибудь, если текущая Group скрыта
+            l.setBackgroundColor(Color.TRANSPARENT);//Изменяем что-нибудь, если текущая Group скрыта
         }
 
         TextView textGroup = (TextView) convertView.findViewById(R.id.title);

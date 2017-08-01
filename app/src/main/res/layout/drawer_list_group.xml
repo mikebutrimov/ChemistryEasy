@@ -15,7 +15,9 @@
   ~    limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/list_group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
@@ -24,11 +26,13 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.7"
+        android:alpha="0.9"
         android:background="@color/cardview_dark_background"
         android:padding="@dimen/_4sdp"
+        android:text="TextView"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:text="TextView" />
+        android:textSize="@dimen/_13sdp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
-</LinearLayout>
+</RelativeLayout>

@@ -81,15 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
         mDrawerList.bringToFront();
         mDrawerLayout.requestLayout();
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            Toast toast;
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(toast != null) {toast.cancel();}
-                toast = Toast.makeText(getApplicationContext(),"You click item with position: " + String.valueOf(position + 1), Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
+
         allElementsContainer = new ChemElementContainer(getApplicationContext());
         allElementsContainer.initFromDb(getApplicationContext());
 
@@ -158,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<ArrayList<String>> initDrawerOptions()
     {
         ArrayList<ArrayList<String>> groups = new ArrayList<ArrayList<String>>();
+
         ArrayList<String> elements = new ArrayList<String>();
         ArrayList<String> calculator = new ArrayList<String>();
         ArrayList<String> family_elements = new ArrayList<String>();
