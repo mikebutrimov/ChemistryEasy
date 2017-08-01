@@ -15,15 +15,14 @@
   -->
 
 <resources>
-    <string name="app_name">ChemistryEasy</string>
-
-    <string name="elements">Elements</string>
+    <string name="app_name">Химия просто</string>
+    <string name="elements">Элементы</string>
 
     <string-array name="group_names"> <!-- Необходимо точное соответствие со списком -->
-        <item>Elements</item>
-        <item>Calc</item>
-        <item>Groups</item>
-        <item></item>
+        <item>Элементы</item>
+        <item>Калькулятор</item>
+        <item>Группы</item>
+        <item>Агрегатное состояние</item>
     </string-array>
 
     <string-array name="elements">
@@ -48,9 +47,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="groups">Groups</string>
-    <string name="S">S</string>
-    <string name="P">P</string>
-    <string name="physical_form">Physical Form</string>
+    <string name="groups">Группы</string>
+    <string name="physical_form">Агрегатное состояние</string>
 
 </resources>

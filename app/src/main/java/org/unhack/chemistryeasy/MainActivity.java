@@ -18,26 +18,29 @@ package org.unhack.chemistryeasy;
 
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
+
 import org.greenrobot.eventbus.EventBus;
 
 import org.unhack.chemistryeasy.elements.ChemElement;
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
-import org.unhack.chemistryeasy.ui.adaptors.DrawerAdapter;
 import org.unhack.chemistryeasy.ui.adaptors.MixedPagerAdapter;
 import org.unhack.chemistryeasy.ui.fragments.OrdinaryTable;
 import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 
-import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener, NavigationView.OnNavigationItemSelectedListener{
     BigViewController big_view;
     ChemElementContainer allElementsContainer;
     public static MixedPagerAdapter pagerAdapter;
@@ -49,13 +52,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String[] groupsTitles = getResources().getStringArray(R.array.group_names);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ExpandableListView) findViewById(R.id.left_drawer);
-        mDrawerList.setAdapter(new DrawerAdapter(getApplicationContext(), initDrawerOptions(), groupsTitles));
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
-        mDrawerList.bringToFront();
         mDrawerLayout.requestLayout();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.left_drawer);
+        navigationView.setNavigationItemSelectedListener(this);
 
         allElementsContainer = new ChemElementContainer(getApplicationContext());
         allElementsContainer.initFromDb(getApplicationContext());
@@ -122,25 +124,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStop();
     }
 
-    private ArrayList<ArrayList<String>> initDrawerOptions()
-    {
-        ArrayList<ArrayList<String>> groups = new ArrayList<ArrayList<String>>();
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-        ArrayList<String> elements = new ArrayList<String>();
-        ArrayList<String> calculator = new ArrayList<String>();
-        ArrayList<String> family_elements = new ArrayList<String>();
-        ArrayList<String> agregat = new ArrayList<String>();
+        if (id == R.id.elements) {
+            // display all elements for example :)
+            Toast.makeText(getApplicationContext(),"Elements", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.physical_form) {
+            Toast.makeText(getApplicationContext(),"Physical Form", Toast.LENGTH_SHORT).show();
 
-        for (int i = 0; i < getResources().getStringArray(R.array.elements).length; i++) {elements.add(i,getResources().getStringArray(R.array.elements)[i]);} // elements
-        for (int i = 0; i < getResources().getStringArray(R.array.calculator).length; i++) {calculator.add(i,getResources().getStringArray(R.array.calculator)[i]);} // calculator
-        for (int i = 0; i < getResources().getStringArray(R.array.family).length; i++) {family_elements.add(i,getResources().getStringArray(R.array.family)[i]);} // family
-        for (int i = 0; i < getResources().getStringArray(R.array.agregat).length; i++) {agregat.add(i,getResources().getStringArray(R.array.agregat)[i]);} // agregat
+        } else if (id == R.id.element_p) {
+            Toast.makeText(getApplicationContext(),"P-elems", Toast.LENGTH_SHORT).show();
 
-        groups.add(0,elements);
-        groups.add(1,calculator);
-        groups.add(2,family_elements);
-        groups.add(3,agregat);
+        } else if (id == R.id.element_s) {
+            Toast.makeText(getApplicationContext(),"S-elems", Toast.LENGTH_SHORT).show();
 
-        return groups;
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
     }
+
+
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/elements"
+            android:title="@string/elements" />
+        <item
+            android:id="@+id/physical_form"
+            android:title="@string/physical_form" />
+    </group>
+
+    <item android:title="@string/groups">
+        <menu>
+            <item
+                android:id="@+id/element_s"
+                android:title="@string/S" />
+            <item
+                android:id="@+id/element_p"
+                android:title="@string/P" />
+        </menu>
+    </item>
+
+</menu>
