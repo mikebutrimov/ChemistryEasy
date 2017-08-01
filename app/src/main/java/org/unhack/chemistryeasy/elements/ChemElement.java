@@ -20,13 +20,9 @@ package org.unhack.chemistryeasy.elements;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.unhack.chemistryeasy.BigViewController;
 import org.unhack.chemistryeasy.R;
 import org.unhack.chemistryeasy.mutators.iMutator;
 

@@ -17,50 +17,25 @@
 package org.unhack.chemistryeasy;
 
 import android.graphics.Color;
-import android.graphics.Point;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
-
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
-import android.widget.FrameLayout;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.Space;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-import org.unhack.chemistryeasy.db.DataBaseHelper;
+
 import org.unhack.chemistryeasy.elements.ChemElement;
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
-import org.unhack.chemistryeasy.events.TemperatureSlideEvent;
 import org.unhack.chemistryeasy.ui.adaptors.DrawerAdapter;
 import org.unhack.chemistryeasy.ui.adaptors.MixedPagerAdapter;
 import org.unhack.chemistryeasy.ui.fragments.OrdinaryTable;
-import org.unhack.chemistryeasy.ui.listeners.TempSeekBarListener;
 import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener{
     BigViewController big_view;
