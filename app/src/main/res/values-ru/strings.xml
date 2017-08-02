@@ -49,5 +49,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="groups">Группы</string>
     <string name="physical_form">Агрегатное состояние</string>
+    <string name="element">Элемент</string>
+    <string name="symbol">Символ</string>
+    <string name="mass">Масса</string>
+    <string name="number">Номер</string>
 
 </resources>

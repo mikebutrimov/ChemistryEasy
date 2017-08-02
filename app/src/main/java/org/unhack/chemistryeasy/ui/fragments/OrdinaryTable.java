@@ -34,6 +34,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.unhack.chemistryeasy.BigViewController;
 import org.unhack.chemistryeasy.R;
 import org.unhack.chemistryeasy.elements.ChemElement;
+import org.unhack.chemistryeasy.elements.ChemElementContainer;
 import org.unhack.chemistryeasy.events.TemperatureSlideEvent;
 import org.unhack.chemistryeasy.ui.listeners.TempSeekBarListener;
 import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
@@ -45,6 +46,7 @@ import java.util.HashMap;
  */
 
 public class OrdinaryTable extends PeriodicTableFragment implements iFragment, View.OnClickListener, View.OnLongClickListener {
+    private View view;
     BigViewController big_view;
     SeekBar temp;
     int width,height,x_size,y_size;
@@ -62,12 +64,13 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
     static final int ELEMENTS_MARGIN_RIGHT = 1;
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ordinary_table_layout, container, false);
+        Log.d("Container", "In onCreateView. Set for class: "+ this.toString() +" "+
+                "Container id: " +this.container.toString());
+
+        view = inflater.inflate(R.layout.ordinary_table_layout, container, false);
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -82,6 +85,7 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         return view;
     }
 
+
     public void Ui_init(View v){
         big_view = new BigViewController(v.getContext());
         Space space = new Space(v.getContext());
@@ -93,6 +97,7 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         bigViewParams.width = x_size*BV_X_SIZE;
         bigViewParams.height = y_size*BV_Y_SIZE;
         big_view.setLayoutParams(bigViewParams);
+        big_view.setElementToView(1);
 
         for(int i = 0; i < this.container.getSize(); i++) {
             ChemElement buf = this.container.getElementByNumber(i + 1);
@@ -130,7 +135,6 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         ChemElement el = (ChemElement) v;
         ElementPopUp popUp = new ElementPopUp((ChemElement) v,getContext(),v);
         popUp.show();
-        Log.d("ELEMENT", ((ChemElement) v).getElementNativeName());
     }
 
     @Override

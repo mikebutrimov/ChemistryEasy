@@ -52,5 +52,9 @@
     <string name="S">S</string>
     <string name="P">P</string>
     <string name="physical_form">Physical Form</string>
+    <string name="element">Element</string>
+    <string name="symbol">Symbol</string>
+    <string name="mass">Mass</string>
+    <string name="number">Number</string>
 
 </resources>

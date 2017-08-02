@@ -10,17 +10,14 @@
         <item
             android:id="@+id/physical_form"
             android:title="@string/physical_form" />
+
+        <item
+            android:id="@+id/element_groups"
+            android:title="@string/groups" />
+
+
     </group>
 
-    <item android:title="@string/groups">
-        <menu>
-            <item
-                android:id="@+id/element_s"
-                android:title="@string/S" />
-            <item
-                android:id="@+id/element_p"
-                android:title="@string/P" />
-        </menu>
-    </item>
+
 
 </menu>

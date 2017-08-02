@@ -34,6 +34,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.unhack.chemistryeasy.BigViewController;
 import org.unhack.chemistryeasy.R;
 import org.unhack.chemistryeasy.elements.ChemElement;
+import org.unhack.chemistryeasy.elements.ChemElementContainer;
 import org.unhack.chemistryeasy.events.TemperatureSlideEvent;
 import org.unhack.chemistryeasy.ui.listeners.TempSeekBarListener;
 import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
@@ -44,14 +45,17 @@ import java.util.HashMap;
  * Created by unhack on 7/26/17.
  */
 
-public class OrdinaryTablePhysicalForm extends OrdinaryTable  {
+public class PhysicalFormTable extends OrdinaryTable  {
+
     @Override
     public void Ui_init(View v){
         super.Ui_init(v);
         temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
         temp.setProgress(NORMAL_TEMPERATURE_K);
+        this.container.getStateInTemp(NORMAL_TEMPERATURE_K);
         temp.setVisibility(View.VISIBLE);
         temp_tx.setVisibility(View.VISIBLE);
+
 
     }
 

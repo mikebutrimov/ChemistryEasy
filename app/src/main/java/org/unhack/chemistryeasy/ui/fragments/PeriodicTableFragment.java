@@ -17,6 +17,7 @@
 package org.unhack.chemistryeasy.ui.fragments;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
 
@@ -25,7 +26,7 @@ import org.unhack.chemistryeasy.elements.ChemElementContainer;
  */
 
 public class PeriodicTableFragment extends Fragment implements iFragment {
-    private int id;
+    public int id;
     public ChemElementContainer container;
 
 
@@ -38,9 +39,10 @@ public class PeriodicTableFragment extends Fragment implements iFragment {
         return this.id;
     }
 
-    public void setContainer(ChemElementContainer container){
+    public void setContainer (ChemElementContainer container){
         this.container = container;
+        Log.d("Container", "In setContainer. Set for class: "+ this.toString() +" "+
+                "Container id: " +this.container.toString());
     }
-
 
 }

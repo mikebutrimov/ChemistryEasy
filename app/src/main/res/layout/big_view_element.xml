@@ -27,6 +27,7 @@
     app:cardElevation="0dp"
     tools:padding="@dimen/_4sdp">
 
+
     <RelativeLayout
         android:id="@+id/left_element"
         android:layout_width="@dimen/_72sdp"
@@ -41,7 +42,6 @@
             android:id="@+id/big_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bh"
             android:textColor="#000"
             android:textSize="@dimen/_23sdp"
             android:textStyle="bold" />
@@ -53,7 +53,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="1"
             android:textColor="#000"
             android:textSize="@dimen/_15sdp"
             android:textStyle="bold" />
@@ -65,7 +64,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/big_symbol"
-            android:text="[265]"
             android:textColor="#000"
             android:textSize="@dimen/_8sdp"
             android:textStyle="bold" />
@@ -77,7 +75,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/big_mass"
-            android:text="Hydrogen"
             android:textColor="#000"
             android:textSize="@dimen/_8sdp"
             android:textStyle="bold" />

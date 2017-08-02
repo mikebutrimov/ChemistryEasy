@@ -36,8 +36,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.unhack.chemistryeasy.elements.ChemElement;
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
 import org.unhack.chemistryeasy.ui.adaptors.MixedPagerAdapter;
+import org.unhack.chemistryeasy.ui.fragments.GroupedTable;
 import org.unhack.chemistryeasy.ui.fragments.OrdinaryTable;
-import org.unhack.chemistryeasy.ui.fragments.OrdinaryTablePhysicalForm;
+import org.unhack.chemistryeasy.ui.fragments.PhysicalFormTable;
 import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 
 
@@ -85,13 +86,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void initPaging() {
+
         OrdinaryTable mOrdinaryTableFragment = new OrdinaryTable();
-        OrdinaryTablePhysicalForm mOrdinaryTablePhysicalForm = new OrdinaryTablePhysicalForm();
-        mOrdinaryTableFragment.setContainer(ChemElementContainerFabric(getApplicationContext()));
-        mOrdinaryTablePhysicalForm.setContainer(ChemElementContainerFabric(getApplicationContext()));
+        PhysicalFormTable mPhysicalFormTable = new PhysicalFormTable();
+        PhysicalFormTable mPhysicalFormTable2 = new PhysicalFormTable();
+        mOrdinaryTableFragment.setContainer(ChemElementContainerFabric(this));
+        mPhysicalFormTable.setContainer(ChemElementContainerFabric(this));
+        mPhysicalFormTable2.setContainer(ChemElementContainerFabric(this));
         pagerAdapter = new MixedPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(mOrdinaryTableFragment);
-        pagerAdapter.addFragment(mOrdinaryTablePhysicalForm);
+        pagerAdapter.addFragment(mPhysicalFormTable);
+        pagerAdapter.addFragment(mPhysicalFormTable2);
         viewPager = (ViewPager) findViewById(R.id.container);
         if (viewPager != null) {
             viewPager.setAdapter(pagerAdapter);
@@ -130,18 +135,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (id == R.id.elements) {
             // display all elements for example :)
-            Toast.makeText(getApplicationContext(),"Elements", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),getString(R.string.elements), Toast.LENGTH_SHORT).show();
             viewPager.setCurrentItem(0);
 
         } else if (id == R.id.physical_form) {
-            Toast.makeText(getApplicationContext(),"Physical Form", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),getString(R.string.physical_form), Toast.LENGTH_SHORT).show();
             viewPager.setCurrentItem(1);
 
-        } else if (id == R.id.element_p) {
-            Toast.makeText(getApplicationContext(),"P-elems", Toast.LENGTH_SHORT).show();
-
-        } else if (id == R.id.element_s) {
-            Toast.makeText(getApplicationContext(),"S-elems", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.element_groups) {
+            Toast.makeText(getApplicationContext(),getString(R.string.groups), Toast.LENGTH_SHORT).show();
+            Log.d("COUNT", String.valueOf(viewPager.getAdapter().getCount()));
+            viewPager.setCurrentItem(2);
 
         }
 
@@ -152,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     ChemElementContainer ChemElementContainerFabric (Context cntx){
-        ChemElementContainer buf = new ChemElementContainer(cntx);
+        ChemElementContainer buf = new ChemElementContainer();
         buf.initFromDb(cntx);
         return buf;
     }
