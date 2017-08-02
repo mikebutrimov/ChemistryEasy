@@ -67,6 +67,9 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        this.container = new ChemElementContainer();
+        this.container.initFromDb(getActivity().getApplicationContext());
         Log.d("Container", "In onCreateView. Set for class: "+ this.toString() +" "+
                 "Container id: " +this.container.toString());
 

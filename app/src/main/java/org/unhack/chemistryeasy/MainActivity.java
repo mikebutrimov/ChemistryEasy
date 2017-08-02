@@ -34,8 +34,8 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 
 import org.unhack.chemistryeasy.elements.ChemElement;
-import org.unhack.chemistryeasy.elements.ChemElementContainer;
 import org.unhack.chemistryeasy.ui.adaptors.MixedPagerAdapter;
+import org.unhack.chemistryeasy.ui.adaptors.NonSwipeableViewPager;
 import org.unhack.chemistryeasy.ui.fragments.GroupedTable;
 import org.unhack.chemistryeasy.ui.fragments.OrdinaryTable;
 import org.unhack.chemistryeasy.ui.fragments.PhysicalFormTable;
@@ -45,7 +45,7 @@ import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener, NavigationView.OnNavigationItemSelectedListener{
     BigViewController big_view;
     public static MixedPagerAdapter pagerAdapter;
-    private ViewPager viewPager;
+    private NonSwipeableViewPager viewPager;
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -86,20 +86,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void initPaging() {
-
         OrdinaryTable mOrdinaryTableFragment = new OrdinaryTable();
         PhysicalFormTable mPhysicalFormTable = new PhysicalFormTable();
-        PhysicalFormTable mPhysicalFormTable2 = new PhysicalFormTable();
-        mOrdinaryTableFragment.setContainer(ChemElementContainerFabric(this));
-        mPhysicalFormTable.setContainer(ChemElementContainerFabric(this));
-        mPhysicalFormTable2.setContainer(ChemElementContainerFabric(this));
+        GroupedTable mGroupedTable = new GroupedTable();
         pagerAdapter = new MixedPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(mOrdinaryTableFragment);
         pagerAdapter.addFragment(mPhysicalFormTable);
-        pagerAdapter.addFragment(mPhysicalFormTable2);
-        viewPager = (ViewPager) findViewById(R.id.container);
+        pagerAdapter.addFragment(mGroupedTable);
+        viewPager = (NonSwipeableViewPager) findViewById(R.id.container);
+
         if (viewPager != null) {
             viewPager.setAdapter(pagerAdapter);
+            viewPager.setPagingEnabled(false);
         }
 
     }
@@ -107,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        ChemElement el = (ChemElement) v;
         ElementPopUp popUp = new ElementPopUp((ChemElement) v,getApplicationContext(),v);
         popUp.show();
         Log.d("ELEMENT", ((ChemElement) v).getElementNativeName());
@@ -154,12 +151,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return true;
     }
-
-    ChemElementContainer ChemElementContainerFabric (Context cntx){
-        ChemElementContainer buf = new ChemElementContainer();
-        buf.initFromDb(cntx);
-        return buf;
-    }
-
 
 }

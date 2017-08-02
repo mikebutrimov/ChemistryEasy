@@ -39,10 +39,5 @@ public class PeriodicTableFragment extends Fragment implements iFragment {
         return this.id;
     }
 
-    public void setContainer (ChemElementContainer container){
-        this.container = container;
-        Log.d("Container", "In setContainer. Set for class: "+ this.toString() +" "+
-                "Container id: " +this.container.toString());
-    }
 
 }

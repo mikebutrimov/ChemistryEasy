@@ -25,7 +25,4 @@ import org.unhack.chemistryeasy.elements.ChemElementContainer;
 public interface iFragment {
     void setId(int id);
     int getTabId();
-    void setContainer (ChemElementContainer container);
-
-
 }
