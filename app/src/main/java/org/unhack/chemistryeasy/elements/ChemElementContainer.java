@@ -69,6 +69,10 @@ public class ChemElementContainer {
          *  10 - discovery_year (int)
          */
 
+
+        Pattern mPattern = Pattern.compile("\\d+(.{1}\\d+)");
+
+
         for (String[] rec : elems) {
             ChemElement bufElem = null;
             try {
@@ -77,7 +81,6 @@ public class ChemElementContainer {
                 }
             catch (NumberFormatException e){
                 String sWeight = rec[4];
-                Pattern mPattern = Pattern.compile("\\d+(.{1}\\d+)");
                 Matcher mMatcher = mPattern.matcher(sWeight);
                 mMatcher.find();
                 try {
