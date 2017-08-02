@@ -21,6 +21,7 @@ import android.content.Context;
 import org.unhack.chemistryeasy.db.DataBaseHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -126,7 +127,7 @@ public class ChemElementContainer {
             this.storage.put(elem.getElementNumber(), elem);
         }
     }
-    public void getStateInTemp(int temperature)
+    /*public void getStateInTemp(int temperature)
     {
         for(int i = 1; i < storage.size(); i++)
         {
@@ -143,6 +144,30 @@ public class ChemElementContainer {
                 storage.get(i).setColor("#4EBDD1");
                 // Газообразное
             }}
+        }
+    }*/
+
+    public void getStateInTemp(int temperature) {
+        for (Map.Entry<Integer, ChemElement> entry: this.storage.entrySet()){
+            ChemElement buf = entry.getValue();
+            float melt = buf.getMeltingPoint();
+            float boil = buf.getBoilingPoint();
+            if (melt == 0 || boil ==0) {
+                buf.setColor("#aaaaaa");
+            }
+            else {
+                if (temperature < melt){
+                    buf.setColor("#E87891");
+                }
+                else if (temperature > melt && temperature < boil){
+                    buf.setColor("#F5DA67");
+                }
+                else
+                {
+                    buf.setColor("#4EBDD1");
+                }
+            }
+
         }
     }
 
