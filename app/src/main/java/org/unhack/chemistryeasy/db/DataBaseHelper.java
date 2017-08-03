@@ -132,6 +132,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 }while (cursor.moveToNext());
             }
         }
+        cursor.close();
         return userName;
     }
 
@@ -155,6 +156,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                     cursor.moveToNext();
                 }
             }
+            cursor.close();
         }
         catch (Exception e){
             //suppress exception with cursor

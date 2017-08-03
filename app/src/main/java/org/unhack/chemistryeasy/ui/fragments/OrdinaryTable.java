@@ -135,7 +135,6 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
 
     @Override
     public void onClick(View v) {
-        ChemElement el = (ChemElement) v;
         ElementPopUp popUp = new ElementPopUp((ChemElement) v,getContext(),v);
         popUp.show();
     }
