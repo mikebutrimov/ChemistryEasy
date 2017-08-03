@@ -53,5 +53,7 @@
     <string name="symbol">Символ</string>
     <string name="mass">Масса</string>
     <string name="number">Номер</string>
+    <string name="P">P</string>
+    <string name="S">S</string>
 
 </resources>

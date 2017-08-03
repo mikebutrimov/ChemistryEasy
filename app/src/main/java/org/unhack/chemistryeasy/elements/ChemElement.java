@@ -31,9 +31,6 @@ import org.unhack.chemistryeasy.mutators.iMutator;
 *   SET / GET - block, family, melting_point, boiling_point, discovery_year with check for null
 */
 
-
-
-
 public class ChemElement extends RelativeLayout implements iChemElement {
     /** UI */
     TextView symbol_view;
@@ -43,7 +40,6 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     TextView second_name_view;
     RelativeLayout element_box;
     /***/
-
     private int number;
     private int family;
     private int discovery_year;
@@ -55,6 +51,7 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     private float atomic_weight;
     private boolean radioactive;
     private iMutator mutator;
+
     /**
      * Default constructor
      *

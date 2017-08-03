@@ -69,10 +69,7 @@ public class ChemElementContainer {
          *  10 - discovery_year (int)
          */
 
-
         Pattern mPattern = Pattern.compile("\\d+(.{1}\\d+)");
-
-
         for (String[] rec : elems) {
             ChemElement bufElem = null;
             try {
@@ -130,25 +127,6 @@ public class ChemElementContainer {
             this.storage.put(elem.getElementNumber(), elem);
         }
     }
-    /*public void getStateInTemp(int temperature)
-    {
-        for(int i = 1; i < storage.size(); i++)
-        {
-            if(storage.get(i).getBoilingPoint() == 0 || storage.get(i).getMeltingPoint() == 0){storage.get(i).setColor("#aaaaaa");}
-            else {
-            if(temperature < storage.get(i).getMeltingPoint())
-            {
-                storage.get(i).setColor("#E87891");  // Твердое
-            }else if(temperature > storage.get(i).getMeltingPoint() && temperature < storage.get(i).getBoilingPoint())
-            {
-                storage.get(i).setColor("#F5DA67");  // Жидкое
-            } else if(temperature > storage.get(i).getBoilingPoint())
-            {
-                storage.get(i).setColor("#4EBDD1");
-                // Газообразное
-            }}
-        }
-    }*/
 
     public void getStateInTemp(int temperature) {
         for (Map.Entry<Integer, ChemElement> entry: this.storage.entrySet()){
@@ -165,13 +143,10 @@ public class ChemElementContainer {
                 else if (temperature > melt && temperature < boil){
                     buf.setColor("#F5DA67");
                 }
-                else
-                {
+                else {
                     buf.setColor("#4EBDD1");
                 }
             }
-
         }
     }
-
 }
