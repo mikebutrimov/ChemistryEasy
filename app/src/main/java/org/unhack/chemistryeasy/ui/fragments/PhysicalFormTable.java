@@ -40,6 +40,7 @@ import org.unhack.chemistryeasy.ui.listeners.TempSeekBarListener;
 import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 /**
  * Created by unhack on 7/26/17.
@@ -55,8 +56,7 @@ public class PhysicalFormTable extends OrdinaryTable  {
         this.container.getStateInTemp(NORMAL_TEMPERATURE_K);
         temp.setVisibility(View.VISIBLE);
         temp_tx.setVisibility(View.VISIBLE);
-
-
+        temp_tx.setText(String.valueOf(NORMAL_TEMPERATURE_K));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
