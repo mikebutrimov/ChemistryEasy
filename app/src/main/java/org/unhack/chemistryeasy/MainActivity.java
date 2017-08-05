@@ -86,11 +86,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initPaging() {
         OrdinaryTable mOrdinaryTableFragment = new OrdinaryTable();
         PhysicalFormTable mPhysicalFormTable = new PhysicalFormTable();
-        GroupedTable mGroupedTable = new GroupedTable();
+        //GroupedTable mGroupedTable = new GroupedTable();
         pagerAdapter = new MixedPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(mOrdinaryTableFragment);
         pagerAdapter.addFragment(mPhysicalFormTable);
-        pagerAdapter.addFragment(mGroupedTable);
+        //pagerAdapter.addFragment(mGroupedTable);
         viewPager = (NonSwipeableViewPager) findViewById(R.id.container);
 
         if (viewPager != null) {
@@ -137,16 +137,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(),getString(R.string.physical_form), Toast.LENGTH_SHORT).show();
             viewPager.setCurrentItem(1);
 
-        } else if (id == R.id.element_groups) {
+        } /*else if (id == R.id.element_groups) {
             Toast.makeText(getApplicationContext(),getString(R.string.groups), Toast.LENGTH_SHORT).show();
             Log.d("COUNT", String.valueOf(viewPager.getAdapter().getCount()));
             viewPager.setCurrentItem(2);
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-
         return true;
     }
 

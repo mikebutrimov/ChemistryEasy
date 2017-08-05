@@ -26,10 +26,11 @@
         <item
             android:id="@+id/physical_form"
             android:title="@string/physical_form" />
-
+        <!--
         <item
             android:id="@+id/element_groups"
             android:title="@string/groups" />
+            -->
 
 
     </group>

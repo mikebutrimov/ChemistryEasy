@@ -56,5 +56,6 @@
     <string name="symbol">Symbol</string>
     <string name="mass">Mass</string>
     <string name="number">Number</string>
+    <string name="Kelvin">K°</string>
 
 </resources>

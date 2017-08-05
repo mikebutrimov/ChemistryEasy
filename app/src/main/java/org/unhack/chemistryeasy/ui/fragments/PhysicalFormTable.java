@@ -56,13 +56,13 @@ public class PhysicalFormTable extends OrdinaryTable  {
         this.container.getStateInTemp(NORMAL_TEMPERATURE_K);
         temp.setVisibility(View.VISIBLE);
         temp_tx.setVisibility(View.VISIBLE);
-        temp_tx.setText(String.valueOf(NORMAL_TEMPERATURE_K));
+        temp_tx.setText(String.valueOf(NORMAL_TEMPERATURE_K) + getString(R.string.Kelvin));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(TemperatureSlideEvent event) {
         this.container.getStateInTemp(event.temperature);
-        temp_tx.setText(String.valueOf(event.temperature));
+        temp_tx.setText(String.valueOf(event.temperature) + getString(R.string.Kelvin));
     }
 
     @Override

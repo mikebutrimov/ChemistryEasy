@@ -55,5 +55,6 @@
     <string name="number">Номер</string>
     <string name="P">P</string>
     <string name="S">S</string>
+    <string name="Kelvin">K°</string>
 
 </resources>
