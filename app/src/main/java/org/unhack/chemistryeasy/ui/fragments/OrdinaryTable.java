@@ -28,15 +28,10 @@ import android.widget.SeekBar;
 import android.widget.Space;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.unhack.chemistryeasy.BigViewController;
 import org.unhack.chemistryeasy.R;
 import org.unhack.chemistryeasy.elements.ChemElement;
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
-import org.unhack.chemistryeasy.events.TemperatureSlideEvent;
-import org.unhack.chemistryeasy.ui.listeners.TempSeekBarListener;
 import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 
 import java.util.HashMap;
@@ -67,11 +62,10 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        this.container = new ChemElementContainer();
-        this.container.initFromDb(getActivity().getApplicationContext());
-        Log.d("Container", "In onCreateView. Set for class: "+ this.toString() +" "+
-                "Container id: " +this.container.toString());
+        OrdinaryTable.container = new ChemElementContainer();
+        OrdinaryTable.container.initFromDb(getActivity().getApplicationContext());
+        Log.d("Container", "In onCreateView. Set for class: " + this.toString() + " " +
+                "Container id: " + this.container.toString());
 
         view = inflater.inflate(R.layout.ordinary_table_layout, container, false);
         Display display = getActivity().getWindowManager().getDefaultDisplay();
@@ -79,12 +73,13 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         display.getSize(size);
         width = size.x;
         height = size.y;
-        x_size = (int) Math.floor((double)width / X_CROP);
-        y_size = (int) Math.floor((double)height / Y_CROP);
+        x_size = (int) Math.floor((double) width / X_CROP);
+        y_size = (int) Math.floor((double) height / Y_CROP);
         //calc of X margin
-        int x_margin = (width - x_size*18) /2;
-        view.setPadding(x_margin,x_margin,x_margin,x_margin);
+        int x_margin = (width - x_size * 18) / 2;
+        view.setPadding(x_margin, x_margin, x_margin, x_margin);
         Ui_init(view);
+        init_specific_ui(view);
         return view;
     }
 
@@ -131,6 +126,10 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         temp_tx = (TextView) v.findViewById(R.id.temp_tx);
         temp.setVisibility(View.INVISIBLE);
         temp_tx.setVisibility(View.INVISIBLE);
+    }
+
+    public void init_specific_ui(View v){
+        //do nothing here
     }
 
 

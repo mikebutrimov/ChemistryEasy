@@ -16,53 +16,41 @@
 
 package org.unhack.chemistryeasy.ui.fragments;
 
-import android.graphics.Point;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.SeekBar;
-import android.widget.Space;
-import android.widget.TextView;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.unhack.chemistryeasy.BigViewController;
 import org.unhack.chemistryeasy.R;
-import org.unhack.chemistryeasy.elements.ChemElement;
-import org.unhack.chemistryeasy.elements.ChemElementContainer;
 import org.unhack.chemistryeasy.events.TemperatureSlideEvent;
 import org.unhack.chemistryeasy.ui.listeners.TempSeekBarListener;
-import org.unhack.chemistryeasy.ui.popups.ElementPopUp;
 
-import java.util.HashMap;
-import java.util.StringTokenizer;
 
 /**
  * Created by unhack on 7/26/17.
  */
 
 public class PhysicalFormTable extends OrdinaryTable  {
+    private int last_temp = 0;
 
     @Override
-    public void Ui_init(View v){
-        super.Ui_init(v);
+    public void init_specific_ui(View v){
+        super.init_specific_ui(v);
         temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
-        temp.setProgress(NORMAL_TEMPERATURE_K);
         container.getStateInTemp(NORMAL_TEMPERATURE_K);
         temp.setVisibility(View.VISIBLE);
         temp_tx.setVisibility(View.VISIBLE);
         temp_tx.setText(String.valueOf(NORMAL_TEMPERATURE_K) + getString(R.string.Kelvin));
+        temp.setProgress(NORMAL_TEMPERATURE_K);
+        last_temp = NORMAL_TEMPERATURE_K;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(TemperatureSlideEvent event) {
         container.getStateInTemp(event.temperature);
         temp_tx.setText(String.valueOf(event.temperature) + getString(R.string.Kelvin));
+        last_temp = event.temperature;
     }
 
     @Override
@@ -75,6 +63,13 @@ public class PhysicalFormTable extends OrdinaryTable  {
     public void  onStop(){
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        temp.setProgress(last_temp);
+        temp_tx.setText(String.valueOf(last_temp) + getString(R.string.Kelvin));
+
     }
 
 }
