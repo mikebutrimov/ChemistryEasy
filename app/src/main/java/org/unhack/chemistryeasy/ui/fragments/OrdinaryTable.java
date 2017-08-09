@@ -120,6 +120,7 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
             else {
                 table.addView(buf);
             }
+            buf.colorise();
             buf.setOnClickListener(this);
             buf.setOnLongClickListener(this);
             GridLayout.LayoutParams params = (GridLayout.LayoutParams) buf.getLayoutParams();
@@ -146,9 +147,5 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         big_view.setElementToView(num);
         return true;
     }
-
-
-
-
 
 }

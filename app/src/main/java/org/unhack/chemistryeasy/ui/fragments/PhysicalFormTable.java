@@ -53,7 +53,7 @@ public class PhysicalFormTable extends OrdinaryTable  {
         super.Ui_init(v);
         temp.setOnSeekBarChangeListener(new TempSeekBarListener(temp));
         temp.setProgress(NORMAL_TEMPERATURE_K);
-        this.container.getStateInTemp(NORMAL_TEMPERATURE_K);
+        container.getStateInTemp(NORMAL_TEMPERATURE_K);
         temp.setVisibility(View.VISIBLE);
         temp_tx.setVisibility(View.VISIBLE);
         temp_tx.setText(String.valueOf(NORMAL_TEMPERATURE_K) + getString(R.string.Kelvin));
@@ -61,7 +61,7 @@ public class PhysicalFormTable extends OrdinaryTable  {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(TemperatureSlideEvent event) {
-        this.container.getStateInTemp(event.temperature);
+        container.getStateInTemp(event.temperature);
         temp_tx.setText(String.valueOf(event.temperature) + getString(R.string.Kelvin));
     }
 

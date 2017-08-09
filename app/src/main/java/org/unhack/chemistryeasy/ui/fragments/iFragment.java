@@ -16,7 +16,6 @@
 
 package org.unhack.chemistryeasy.ui.fragments;
 
-import org.unhack.chemistryeasy.elements.ChemElementContainer;
 
 /**
  * Created by unhack on 7/26/17.

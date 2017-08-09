@@ -27,7 +27,7 @@ import org.unhack.chemistryeasy.elements.ChemElementContainer;
 
 public class PeriodicTableFragment extends Fragment implements iFragment {
     public int id;
-    public ChemElementContainer container;
+    public static ChemElementContainer container;
 
 
     @Override
