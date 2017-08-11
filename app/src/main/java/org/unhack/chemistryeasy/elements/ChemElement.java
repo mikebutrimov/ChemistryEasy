@@ -37,7 +37,6 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     TextView number_view;
     TextView mass_view;
     TextView first_name_view;
-    TextView second_name_view;
     RelativeLayout element_box;
     /***/
     private int number;
@@ -51,6 +50,7 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     private float atomic_weight;
     private boolean radioactive;
     private iMutator mutator;
+    private static LayoutInflater inflater;
 
     /**
      * Default constructor
@@ -58,11 +58,14 @@ public class ChemElement extends RelativeLayout implements iChemElement {
      */
     public ChemElement(Context context,int number, String symbol, String name, float atomic_weight, boolean radioactive){
         super(context);
+        inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         init();
-        this.number = number;number_view.setText(String.valueOf(number));
-        this.symbol = symbol;symbol_view.setText(symbol);
-        this.atomic_weight = atomic_weight;mass_view.setText(String.valueOf(atomic_weight));
-        this.native_name = name;first_name_view.setText(name);
+        this.number = number;
+        number_view.setText(String.valueOf(number));
+        this.symbol = symbol;
+        symbol_view.setText(symbol);
+        this.atomic_weight = atomic_weight;
+        this.native_name = name;
         this.radioactive = radioactive;
     }
     public ChemElement(Context context, AttributeSet attrs) {
@@ -76,19 +79,10 @@ public class ChemElement extends RelativeLayout implements iChemElement {
     }
 
     public void init() {
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.element_layout, this);
         symbol_view = (TextView) findViewById(R.id.symbol);
         number_view = (TextView) findViewById(R.id.number);
-        mass_view = (TextView) findViewById(R.id.mass);
-        first_name_view = (TextView) findViewById(R.id.first_name);
-        second_name_view = (TextView) findViewById(R.id.second_name);
         element_box = (RelativeLayout) findViewById(R.id.element_box);
-        /** Radioactive and S,P,D,F */
-        if (this.radioactive)
-        {
-            // radioactive
-        }
     }
 
     /** Number */
