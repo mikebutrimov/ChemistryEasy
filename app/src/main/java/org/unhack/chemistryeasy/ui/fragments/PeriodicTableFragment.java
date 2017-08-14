@@ -18,8 +18,11 @@ package org.unhack.chemistryeasy.ui.fragments;
 
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.widget.GridLayout;
 
 import org.unhack.chemistryeasy.elements.ChemElementContainer;
+
+import java.util.HashMap;
 
 /**
  * Created by unhack on 7/26/17.

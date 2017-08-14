@@ -62,6 +62,7 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         OrdinaryTable.container = new ChemElementContainer();
         OrdinaryTable.container.initFromDb(getActivity().getApplicationContext());
         Log.d("Container", "In onCreateView. Set for class: " + this.toString() + " " +
@@ -97,6 +98,8 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         big_view.setLayoutParams(bigViewParams);
         big_view.setElementToView(1);
 
+        GridLayout.LayoutParams params = null;
+
         for(int i = 0; i < this.container.getSize(); i++) {
             ChemElement buf = this.container.getElementByNumber(i + 1);
 
@@ -118,7 +121,7 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
             buf.colorise();
             buf.setOnClickListener(this);
             buf.setOnLongClickListener(this);
-            GridLayout.LayoutParams params = (GridLayout.LayoutParams) buf.getLayoutParams();
+            params = (GridLayout.LayoutParams) buf.getLayoutParams();
             params.setMargins(ELEMENTS_MARGIN_LEFT,ELEMENTS_MARGIN_TOP,ELEMENTS_MARGIN_RIGHT,ELEMENTS_MARGIN_BUTTOM);
             buf.setLayoutParams(params);
         }
@@ -146,5 +149,6 @@ public class OrdinaryTable extends PeriodicTableFragment implements iFragment, V
         big_view.setElementToView(num);
         return true;
     }
+
 
 }
