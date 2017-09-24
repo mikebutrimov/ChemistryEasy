@@ -46,43 +46,5 @@
         android:textColor="#000"
         android:textSize="@dimen/_6sdp" />
 
-    <TextView
-        android:id="@+id/first_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/symbol"
-        android:text="Hydrogen"
-        android:textColor="#000"
-        android:textSize="@dimen/_4sdp"
-        android:textStyle="bold"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/second_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/first_name"
-        android:text="[translated]"
-        android:textColor="#000"
-        android:textSize="@dimen/_4sdp"
-        android:textStyle="bold"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/mass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/second_name"
-        android:text="1.00794"
-        android:textColor="#000"
-        android:textSize="@dimen/_4sdp"
-        android:textStyle="italic"
-        android:visibility="invisible" />
 
 </RelativeLayout>
